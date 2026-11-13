@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goodykido - عالم الكرتون الآمن</title>
+    
+    <!-- الخطوط الكرتونية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@600;700;800&family=Bubblegum+Sans&family=Cairo:wght@700;800;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS & Phosphor Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['"Baloo Bhaijaan 2"', 'Cairo', 'sans-serif'],
+                        cartoon: ['Fredoka', '"Bubblegum Sans"', '"Baloo Bhaijaan 2"', 'sans-serif'],
+                    },
+                    colors: {
+                        sunYellow: '#FFD93D',
+                        coralRed: '#FF5D6C',
+                        candyBlue: '#3B82F6',
+                        grassGreen: '#4ADE80',
+                        grassDark: '#16A34A',
+                        grapePurple: '#A855F7',
+                        orangePop: '#FB923C',
+                        pinkPop: '#EC4899',
+                        inkDark: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Baloo Bhaijaan 2', 'Cairo', 'Noto Naskh Arabic', 'Tahoma', sans-serif;
+            color: #1E293B;
+            overflow-x: hidden;
+            user-select: none;
+            min-height: 100vh;
+            position: relative;
+            transition: background 0.6s ease;
+        }
+
+        /* ثيم الأولاد (افتراضي) */
+        body.theme-boys {
+            background: linear-gradient(180deg, #38BDF8 0%, #BAE6FD 50%, #E0F2FE 100%);
+        }
+
+        /* ثيم البنات */
+        body.theme-girls {
+            background: linear-gradient(180deg, #F472B6 0%, #FBCFE8 50%, #FCE7F3 100%);
+        }
+
+        .cartoon-box {
+            border: 4px solid #1E293B;
+            box-shadow: 0 6px 0 #1E293B;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cartoon-btn {
+            border: 3.5px solid #1E293B;
+            box-shadow: 0 5px 0 #1E293B;
+            transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cartoon-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 0 #1E293B;
+        }
+        .cartoon-btn:active {
+            transform: translateY(4px) scale(0.98);
+            box-shadow: 0 1px 0 #1E293B;
+        }
+
+        .cartoon-text-outline {
+            font-family: 'Fredoka', 'Bubblegum Sans', sans-serif;
+            -webkit-text-stroke: 2.5px #1E293B;
+            paint-order: stroke fill;
+            text-shadow: 0 4px 0 #1E293B;
+        }
+
+        .cartoon-badge-num {
+            font-family: 'Bubblegum Sans', 'Fredoka', sans-serif;
+            -webkit-text-stroke: 2.5px #1E293B;
+            paint-order: stroke fill;
+            text-shadow: 0 3px 0 #1E293B;
+        }
+
+        @keyframes driftCloudSlow {
+            0% { transform: translateX(-160px); }
+            100% { transform: translateX(calc(100vw + 180px)); }
+        }
+        @keyframes floatCharA {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-14px) rotate(2deg); }
+        }
+        @keyframes floatCharB {
+            0%, 100% { transform: translateY(0px) rotate(2deg); }
+            50% { transform: translateY(-16px) rotate(-2deg); }
+        }
+        .float-char-1 { animation: floatCharA 4.5s ease-in-out infinite; }
+        .float-char-2 { animation: floatCharB 5.2s ease-in-out infinite; }
+        .float-char-3 { animation: floatCharA 4.8s ease-in-out infinite 0.7s; }
+        .float-char-4 { animation: floatCharB 5.5s ease-in-out infinite 1.2s; }
+        .interactive-char {
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .interactive-char:hover {
+            transform: scale(1.08) translateY(-6px);
+        }
+        @keyframes sparklePop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.22) rotate(6deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .char-sparkle-pop { animation: sparklePop 0.5s ease-out; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ================== تحسينات الثيمات ================== */
+        body.theme-boys {
+            background: linear-gradient(180deg, #0EA5E9 0%, #38BDF8 28%, #BAE6FD 65%, #E0F2FE 100%);
+        }
+        body.theme-girls {
+            background: linear-gradient(180deg, #EC4899 0%, #F472B6 22%, #FBCFE8 60%, #FDF2F8 100%);
+        }
+        /* نمط خفيف على الخلفية: نجوم للأولاد، قلوب للبنات */
+        body::before {
+            content: '';
+            position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            opacity: .55;
+        }
+        body.theme-boys::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpolygon points='20,10 22.5,17 30,17.5 24,22 26,29.5 20,25 14,29.5 16,22 10,17.5 17.5,17' fill='white' fill-opacity='.45'/%3E%3Ccircle cx='68' cy='64' r='3' fill='white' fill-opacity='.5'/%3E%3C/svg%3E");
+        }
+        body.theme-girls::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpath d='M22 34 C22 34 12 27 12 21 C12 17 15 15 18 15 C20 15 22 17 22 17 C22 17 24 15 26 15 C29 15 32 17 32 21 C32 27 22 34 22 34 Z' fill='white' fill-opacity='.5'/%3E%3Ccircle cx='68' cy='64' r='3' fill='white' fill-opacity='.55'/%3E%3C/svg%3E");
+        }
+
+        /* إظهار/إخفاء الزينة حسب الثيم */
+        body.theme-girls .boys-only { display: none !important; }
+        body.theme-boys  .girls-only { display: none !important; }
+
+        /* بطاقات الفيديو */
+        .video-card { border: 4px solid #1E293B; box-shadow: 0 6px 0 #1E293B; transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s; }
+        .video-card:hover { transform: translateY(-5px) rotate(-.6deg); box-shadow: 0 11px 0 #1E293B; }
+        body.theme-girls .video-card { box-shadow: 0 6px 0 #BE185D; }
+        body.theme-girls .video-card:hover { box-shadow: 0 11px 0 #BE185D; }
+        body.theme-boys  .video-card { box-shadow: 0 6px 0 #1D4ED8; }
+        body.theme-boys  .video-card:hover { box-shadow: 0 11px 0 #1D4ED8; }
+
+        /* لافتة اسم الشخصية */
+        .char-label {
+            position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%);
+            white-space: nowrap; background: #fff; color: #1E293B; border: 3px solid #1E293B;
+            border-radius: 999px; padding: 1px 10px; font-weight: 900; font-size: 11px;
+            box-shadow: 0 3px 0 #1E293B;
+        }
+        @media (min-width: 640px) { .char-label { font-size: 13px; padding: 2px 12px; } }
+
+        /* حركات */
+        @keyframes blinkEyes { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.08); } }
+        .blink { transform-box: fill-box; transform-origin: center; animation: blinkEyes 4.5s infinite; }
+        @keyframes twinkleStar { 0%, 100% { opacity: .35; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.25); } }
+        .twinkle { transform-box: fill-box; transform-origin: center; animation: twinkleStar 2.6s ease-in-out infinite; }
+        @keyframes spinSlow { to { transform: rotate(360deg); } }
+        .spin-slow { animation: spinSlow 24s linear infinite; }
+        @keyframes flapWings { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.78); } }
+        .flap { transform-origin: 90px 120px; animation: flapWings 1.1s ease-in-out infinite; }
+        @keyframes flameFlicker { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.25); } }
+        .flame { transform-box: fill-box; transform-origin: top center; animation: flameFlicker .35s ease-in-out infinite; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(.7); opacity: 0; }
+            15% { opacity: .9; }
+            100% { transform: translateY(-85vh) scale(1.15); opacity: 0; }
+        }
+        .float-up { animation: floatUp 10s ease-in infinite; }
+        @keyframes groupIn { 0% { opacity: 0; transform: scale(.92); } 100% { opacity: 1; transform: scale(1); } }
+        #boys-characters-group:not(.hidden), #girls-characters-group:not(.hidden) { animation: groupIn .55s ease-out; }
+        @media (prefers-reduced-motion: reduce) {
+            .blink, .twinkle, .spin-slow, .flap, .flame, .float-up, .float-char-1, .float-char-2, .float-char-3, .float-char-4 { animation: none !important; }
+        }
+    </style>
+</head>
+<body class="theme-boys">
+
+    <!-- خلفية السماء والشخصيات الكرتونية التفاعلية -->
+    <div id="cartoon-sky-backdrop" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+
+        <!-- ============ زينة ثيم الأولاد: شمس + نجوم + كوكب + جبال ============ -->
+        <div class="boys-only absolute inset-0">
+            <svg class="absolute top-14 right-[16%] w-16 h-16 sm:w-24 sm:h-24" viewBox="0 0 100 100">
+                <g class="spin-slow" style="transform-origin:50px 50px">
+                    <g stroke="#1E293B" stroke-width="4" stroke-linecap="round" fill="#FDE047">
+                        <line x1="50" y1="4" x2="50" y2="16"/><line x1="50" y1="84" x2="50" y2="96"/>
+                        <line x1="4" y1="50" x2="16" y2="50"/><line x1="84" y1="50" x2="96" y2="50"/>
+                        <line x1="17" y1="17" x2="25" y2="25"/><line x1="75" y1="75" x2="83" y2="83"/>
+                        <line x1="83" y1="17" x2="75" y2="25"/><line x1="25" y1="75" x2="17" y2="83"/>
+                    </g>
+                </g>
+                <circle cx="50" cy="50" r="26" fill="#FDE047" stroke="#1E293B" stroke-width="4"/>
+                <g class="blink"><circle cx="41" cy="46" r="3.5" fill="#1E293B"/><circle cx="59" cy="46" r="3.5" fill="#1E293B"/></g>
+                <path d="M 40 58 Q 50 68 60 58" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="35" cy="56" r="4" fill="#FB923C" opacity=".6"/><circle cx="65" cy="56" r="4" fill="#FB923C" opacity=".6"/>
+            </svg>
+            <svg class="twinkle absolute top-[30%] left-[12%] w-5 h-5" viewBox="0 0 20 20"><polygon points="10,0 12.5,7.5 20,10 12.5,12.5 10,20 7.5,12.5 0,10 7.5,7.5" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="twinkle absolute top-[22%] left-[36%] w-4 h-4" style="animation-delay:.8s" viewBox="0 0 20 20"><polygon points="10,0 12.5,7.5 20,10 12.5,12.5 10,20 7.5,12.5 0,10 7.5,7.5" fill="#FDE047" stroke="#1E293B" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="twinkle absolute top-[38%] right-[30%] w-5 h-5" style="animation-delay:1.4s" viewBox="0 0 20 20"><polygon points="10,0 12.5,7.5 20,10 12.5,12.5 10,20 7.5,12.5 0,10 7.5,7.5" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="twinkle absolute top-[55%] left-[30%] w-4 h-4" style="animation-delay:2s" viewBox="0 0 20 20"><polygon points="10,0 12.5,7.5 20,10 12.5,12.5 10,20 7.5,12.5 0,10 7.5,7.5" fill="#FDE047" stroke="#1E293B" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <!-- كوكب بحلقة -->
+            <svg class="float-char-2 absolute top-[48%] right-[14%] w-14 h-14 sm:w-20 sm:h-20 opacity-90" viewBox="0 0 100 100">
+                <ellipse cx="50" cy="52" rx="46" ry="12" transform="rotate(-18 50 52)" fill="none" stroke="#1E293B" stroke-width="10"/>
+                <ellipse cx="50" cy="52" rx="46" ry="12" transform="rotate(-18 50 52)" fill="none" stroke="#FDE047" stroke-width="5"/>
+                <circle cx="50" cy="50" r="24" fill="#FB923C" stroke="#1E293B" stroke-width="4"/>
+                <path d="M 30 44 Q 50 36 70 44" fill="none" stroke="#FDBA74" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 62 56 Q 78 66 88 62" fill="none" stroke="#1E293B" stroke-width="10" stroke-linecap="round"/>
+                <path d="M 62 56 Q 78 66 88 62" fill="none" stroke="#FDE047" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <!-- جبال بعيدة -->
+            <svg class="absolute left-0 w-full h-32 sm:h-48 bottom-[56px] sm:bottom-[88px]" preserveAspectRatio="none" viewBox="0 0 1440 200">
+                <path d="M0,200 L0,120 L130,40 L230,110 L340,20 L470,120 L580,60 L720,130 L860,30 L990,120 L1100,50 L1230,125 L1340,60 L1440,110 L1440,200 Z" fill="#93C5FD" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                <path d="M340,20 L300,52 L330,48 L345,62 L360,46 L384,54 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                <path d="M860,30 L825,58 L850,54 L864,66 L880,52 L900,58 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <!-- ============ زينة ثيم البنات: قوس قزح + قلوب + بريق + قلعة ============ -->
+        <div class="girls-only absolute inset-0">
+            <svg class="absolute top-14 left-1/2 -translate-x-1/2 w-[22rem] sm:w-[34rem] opacity-90" viewBox="0 0 300 160">
+                <g fill="none" stroke-linecap="butt">
+                    <path d="M 20 150 A 130 130 0 0 1 280 150" stroke="#1E293B" stroke-width="82" opacity="0"/>
+                    <path d="M 20 150 A 130 130 0 0 1 280 150" stroke="#EF4444" stroke-width="12"/>
+                    <path d="M 32 150 A 118 118 0 0 1 268 150" stroke="#FB923C" stroke-width="12"/>
+                    <path d="M 44 150 A 106 106 0 0 1 256 150" stroke="#FACC15" stroke-width="12"/>
+                    <path d="M 56 150 A 94 94 0 0 1 244 150" stroke="#4ADE80" stroke-width="12"/>
+                    <path d="M 68 150 A 82 82 0 0 1 232 150" stroke="#38BDF8" stroke-width="12"/>
+                    <path d="M 80 150 A 70 70 0 0 1 220 150" stroke="#A855F7" stroke-width="12"/>
+                </g>
+                <path d="M 14 151 A 136 136 0 0 1 286 151" fill="none" stroke="#1E293B" stroke-width="3"/>
+                <path d="M 86 151 A 64 64 0 0 1 214 151" fill="none" stroke="#1E293B" stroke-width="3"/>
+                <g fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round">
+                    <path d="M 4 152 Q 0 132 20 134 Q 26 116 46 124 Q 62 118 70 136 Q 88 140 84 154 Z"/>
+                    <path d="M 216 154 Q 212 140 230 136 Q 238 118 256 124 Q 274 116 282 134 Q 300 132 296 152 Z"/>
+                </g>
+            </svg>
+            <span class="float-up absolute bottom-10 left-[8%] text-2xl" style="animation-duration:9s">💖</span>
+            <span class="float-up absolute bottom-10 left-[22%] text-xl" style="animation-duration:11s;animation-delay:2s">💗</span>
+            <span class="float-up absolute bottom-10 left-[40%] text-2xl" style="animation-duration:10s;animation-delay:4s">💕</span>
+            <span class="float-up absolute bottom-10 left-[58%] text-xl" style="animation-duration:12s;animation-delay:1s">💖</span>
+            <span class="float-up absolute bottom-10 left-[74%] text-2xl" style="animation-duration:9.5s;animation-delay:3s">💗</span>
+            <span class="float-up absolute bottom-10 left-[90%] text-xl" style="animation-duration:11s;animation-delay:5s">💕</span>
+            <span class="twinkle absolute top-[30%] left-[14%] text-xl">✨</span>
+            <span class="twinkle absolute top-[24%] right-[18%] text-2xl" style="animation-delay:1s">✨</span>
+            <span class="twinkle absolute top-[52%] left-[32%] text-lg" style="animation-delay:1.8s">⭐</span>
+            <span class="twinkle absolute top-[44%] right-[28%] text-lg" style="animation-delay:.5s">✨</span>
+            <!-- قلعة بعيدة -->
+            <svg class="absolute left-1/2 -translate-x-1/2 w-60 sm:w-96 bottom-[52px] sm:bottom-[82px]" viewBox="0 0 300 150">
+                <g stroke="#1E293B" stroke-width="4" stroke-linejoin="round">
+                    <rect x="20" y="70" width="40" height="80" fill="#E9D5FF"/>
+                    <polygon points="14,70 40,20 66,70" fill="#F472B6"/>
+                    <rect x="240" y="70" width="40" height="80" fill="#E9D5FF"/>
+                    <polygon points="234,70 260,20 286,70" fill="#F472B6"/>
+                    <rect x="100" y="52" width="100" height="98" fill="#F5D0FE"/>
+                    <rect x="120" y="30" width="60" height="30" fill="#E9D5FF"/>
+                    <polygon points="112,30 150,-6 188,30" fill="#C084FC"/>
+                    <path d="M 132 150 L 132 112 Q 150 90 168 112 L 168 150 Z" fill="#A855F7"/>
+                    <rect x="32" y="92" width="16" height="22" rx="8" fill="#FDE047"/>
+                    <rect x="252" y="92" width="16" height="22" rx="8" fill="#FDE047"/>
+                    <circle cx="150" cy="76" r="9" fill="#FDE047"/>
+                    <line x1="40" y1="20" x2="40" y2="4" stroke-linecap="round"/>
+                    <line x1="260" y1="20" x2="260" y2="4" stroke-linecap="round"/>
+                    <line x1="150" y1="-6" x2="150" y2="-18" stroke-linecap="round"/>
+                </g>
+                <polygon points="40,4 56,10 40,16" fill="#EF4444" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                <polygon points="260,4 276,10 260,16" fill="#FACC15" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <!-- سحب متحركة في السماء -->
+        <svg class="absolute top-12 left-0 w-36 h-20 opacity-90" style="animation: driftCloudSlow 38s linear infinite;" viewBox="0 0 180 100">
+            <path d="M 35 75 Q 15 75 15 58 Q 15 42 32 40 Q 42 18 70 20 Q 96 14 112 34 Q 138 32 146 52 Q 155 75 130 75 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+        <svg class="absolute top-36 left-0 w-44 h-24 opacity-85" style="animation: driftCloudSlow 46s linear infinite 12s;" viewBox="0 0 180 100">
+            <path d="M 35 75 Q 15 75 15 58 Q 15 42 32 40 Q 42 18 70 20 Q 96 14 112 34 Q 138 32 146 52 Q 155 75 130 75 Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+
+        <!-- ================== شخصيات ثيم الأولاد (شخصيات أصلية) ================== -->
+        <div id="boys-characters-group" class="w-full h-full relative">
+
+            <!-- 1. كابتن بولت: البطل الخارق -->
+            <div onclick="popCharacter(this, '⚡ كابتن بولت يحميك!')" title="كابتن بولت" class="interactive-char float-char-1 absolute top-24 left-[1%] sm:left-[3%] w-36 h-44 sm:w-48 sm:h-56 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 180 210" class="w-full h-full overflow-visible">
+                    <path d="M 52 118 Q 14 160 26 202 L 154 202 Q 166 160 128 118 Z" fill="#DC2626" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <rect x="62" y="184" width="22" height="20" rx="6" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="96" y="184" width="22" height="20" rx="6" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <line x1="62" y1="134" x2="36" y2="152" stroke="#1E293B" stroke-width="20" stroke-linecap="round"/>
+                    <line x1="62" y1="134" x2="36" y2="152" stroke="#2563EB" stroke-width="12" stroke-linecap="round"/>
+                    <line x1="118" y1="134" x2="148" y2="112" stroke="#1E293B" stroke-width="20" stroke-linecap="round"/>
+                    <line x1="118" y1="134" x2="148" y2="112" stroke="#2563EB" stroke-width="12" stroke-linecap="round"/>
+                    <circle cx="33" cy="155" r="9" fill="#FCD9B0" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="152" cy="108" r="9" fill="#FCD9B0" stroke="#1E293B" stroke-width="3.5"/>
+                    <path d="M 58 120 L 122 120 L 128 190 L 52 190 Z" fill="#2563EB" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <rect x="52" y="174" width="76" height="9" fill="#FACC15" stroke="#1E293B" stroke-width="3"/>
+                    <circle cx="90" cy="148" r="15" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <polygon points="94,136 82,150 90,150 86,161 99,145 91,145" fill="#DC2626" stroke="#1E293B" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="90" cy="80" r="40" fill="#FCD9B0" stroke="#1E293B" stroke-width="4"/>
+                    <path d="M 50 74 C 48 38 80 26 98 32 C 126 28 134 52 130 74 C 118 56 68 54 50 74 Z" fill="#7C2D12" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M 50 80 Q 90 64 130 80 L 126 100 Q 90 88 54 100 Z" fill="#1D4ED8" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <g class="blink"><ellipse cx="72" cy="88" rx="9" ry="8" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.5"/><circle cx="73" cy="89" r="4.5" fill="#1E293B"/><ellipse cx="108" cy="88" rx="9" ry="8" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.5"/><circle cx="107" cy="89" r="4.5" fill="#1E293B"/></g>
+                    <path d="M 76 110 Q 90 122 104 110" fill="none" stroke="#1E293B" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+                <span class="char-label">كابتن بولت</span>
+            </div>
+
+            <!-- 2. الروبوت بيب -->
+            <div onclick="popCharacter(this, '🤖 بيب بوب! الروبوت يرحب بك')" title="روبوت بيب" class="interactive-char float-char-2 absolute top-24 right-[1%] sm:right-[3%] w-36 h-44 sm:w-48 sm:h-56 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 160 190" class="w-full h-full overflow-visible">
+                    <line x1="80" y1="22" x2="80" y2="40" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="80" cy="16" r="8" fill="#EF4444" stroke="#1E293B" stroke-width="3.5" class="twinkle"/>
+                    <rect x="16" y="64" width="16" height="28" rx="5" fill="#F59E0B" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="128" y="64" width="16" height="28" rx="5" fill="#F59E0B" stroke="#1E293B" stroke-width="3.5"/>
+                    <line x1="46" y1="132" x2="20" y2="152" stroke="#1E293B" stroke-width="16" stroke-linecap="round"/>
+                    <line x1="46" y1="132" x2="20" y2="152" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="114" y1="132" x2="140" y2="112" stroke="#1E293B" stroke-width="16" stroke-linecap="round"/>
+                    <line x1="114" y1="132" x2="140" y2="112" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="17" cy="155" r="9" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="143" cy="108" r="9" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="48" y="170" width="26" height="14" rx="7" fill="#64748B" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="86" y="170" width="26" height="14" rx="7" fill="#64748B" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="40" y="118" width="80" height="56" rx="16" fill="#F59E0B" stroke="#1E293B" stroke-width="4"/>
+                    <rect x="58" y="130" width="44" height="28" rx="8" fill="#FEF3C7" stroke="#1E293B" stroke-width="3"/>
+                    <circle cx="70" cy="144" r="5" fill="#EF4444"/><circle cx="82" cy="144" r="5" fill="#4ADE80"/><circle cx="94" cy="144" r="5" fill="#38BDF8"/>
+                    <rect x="28" y="38" width="104" height="80" rx="24" fill="#CBD5E1" stroke="#1E293B" stroke-width="4"/>
+                    <rect x="40" y="52" width="80" height="48" rx="18" fill="#1E293B"/>
+                    <g class="blink"><circle cx="62" cy="70" r="9" fill="#22D3EE"/><circle cx="98" cy="70" r="9" fill="#22D3EE"/><circle cx="65" cy="67" r="3" fill="#FFFFFF"/><circle cx="101" cy="67" r="3" fill="#FFFFFF"/></g>
+                    <path d="M 66 86 Q 80 96 94 86" fill="none" stroke="#22D3EE" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <span class="char-label">الروبوت بيب</span>
+            </div>
+
+            <!-- 3. الديناصور ريكسي -->
+            <div onclick="popCharacter(this, '🦖 ريكسي الديناصور اللطيف يزأر بمرح!')" title="ريكسي" class="interactive-char float-char-3 absolute bottom-20 left-[1%] sm:left-[4%] w-36 h-36 sm:w-48 sm:h-48 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 180 180" class="w-full h-full overflow-visible">
+                    <path d="M 44 140 Q 8 140 10 108 Q 12 96 24 104 Q 28 124 52 124 Z" fill="#22C55E" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <polygon points="50,100 54,78 68,96" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <polygon points="38,116 36,94 54,106" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <ellipse cx="68" cy="164" rx="20" ry="11" fill="#16A34A" stroke="#1E293B" stroke-width="3.5"/>
+                    <ellipse cx="116" cy="164" rx="20" ry="11" fill="#16A34A" stroke="#1E293B" stroke-width="3.5"/>
+                    <ellipse cx="92" cy="130" rx="52" ry="38" fill="#22C55E" stroke="#1E293B" stroke-width="4"/>
+                    <ellipse cx="100" cy="140" rx="32" ry="26" fill="#BBF7D0"/>
+                    <path d="M 132 118 Q 150 126 146 138" fill="none" stroke="#1E293B" stroke-width="12" stroke-linecap="round"/>
+                    <path d="M 132 118 Q 150 126 146 138" fill="none" stroke="#22C55E" stroke-width="6" stroke-linecap="round"/>
+                    <polygon points="76,34 86,12 98,32" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <polygon points="98,30 110,8 122,30" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <polygon points="120,34 132,14 142,38" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <ellipse cx="106" cy="66" rx="46" ry="38" fill="#22C55E" stroke="#1E293B" stroke-width="4"/>
+                    <g class="blink"><ellipse cx="90" cy="56" rx="10" ry="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="92" cy="58" r="5" fill="#1E293B"/><ellipse cx="124" cy="56" rx="10" ry="12" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="122" cy="58" r="5" fill="#1E293B"/></g>
+                    <circle cx="98" cy="72" r="2.5" fill="#15803D"/><circle cx="114" cy="72" r="2.5" fill="#15803D"/>
+                    <path d="M 84 80 Q 106 100 130 80" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <circle cx="82" cy="72" r="5" fill="#F472B6" opacity=".6"/><circle cx="134" cy="72" r="5" fill="#F472B6" opacity=".6"/>
+                </svg>
+                <span class="char-label">ريكسي</span>
+            </div>
+
+            <!-- 4. رائد الفضاء ماكس -->
+            <div onclick="popCharacter(this, '🚀 ماكس رائد الفضاء ينطلق للنجوم!')" title="رائد الفضاء ماكس" class="interactive-char float-char-4 absolute bottom-20 right-[1%] sm:right-[4%] w-32 h-40 sm:w-44 sm:h-52 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 160 190" class="w-full h-full overflow-visible">
+                    <rect x="30" y="102" width="30" height="56" rx="10" fill="#94A3B8" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="100" y="102" width="30" height="56" rx="10" fill="#94A3B8" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="48" y="166" width="26" height="18" rx="7" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="86" y="166" width="26" height="18" rx="7" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                    <line x1="52" y1="124" x2="30" y2="146" stroke="#1E293B" stroke-width="20" stroke-linecap="round"/>
+                    <line x1="52" y1="124" x2="30" y2="146" stroke="#F8FAFC" stroke-width="12" stroke-linecap="round"/>
+                    <line x1="108" y1="124" x2="132" y2="102" stroke="#1E293B" stroke-width="20" stroke-linecap="round"/>
+                    <line x1="108" y1="124" x2="132" y2="102" stroke="#F8FAFC" stroke-width="12" stroke-linecap="round"/>
+                    <circle cx="27" cy="149" r="9" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="135" cy="98" r="9" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <path d="M 48 112 L 112 112 L 120 172 L 40 172 Z" fill="#F8FAFC" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <rect x="62" y="124" width="36" height="22" rx="6" fill="#E2E8F0" stroke="#1E293B" stroke-width="3"/>
+                    <circle cx="72" cy="135" r="4" fill="#EF4444"/><circle cx="82" cy="135" r="4" fill="#FACC15"/><circle cx="92" cy="135" r="4" fill="#38BDF8"/>
+                    <line x1="106" y1="30" x2="118" y2="12" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="120" cy="10" r="6" fill="#EF4444" stroke="#1E293B" stroke-width="3" class="twinkle"/>
+                    <circle cx="80" cy="66" r="48" fill="#F1F5F9" stroke="#1E293B" stroke-width="4"/>
+                    <ellipse cx="80" cy="68" rx="37" ry="33" fill="#1E3A8A" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="80" cy="72" r="25" fill="#FCD9B0"/>
+                    <g class="blink"><circle cx="71" cy="70" r="4" fill="#1E293B"/><circle cx="89" cy="70" r="4" fill="#1E293B"/></g>
+                    <path d="M 71 82 Q 80 90 89 82" fill="none" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="65" cy="80" r="4" fill="#FB7185" opacity=".6"/><circle cx="95" cy="80" r="4" fill="#FB7185" opacity=".6"/>
+                    <path d="M 54 50 Q 62 38 78 36" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+                </svg>
+                <span class="char-label">رائد الفضاء ماكس</span>
+            </div>
+
+            <!-- 5. صاروخ في المنتصف -->
+            <div onclick="popCharacter(this, '🚀 3، 2، 1... انطلاق!')" title="صاروخ" class="interactive-char float-char-1 absolute top-40 left-[44%] w-16 h-20 sm:w-20 sm:h-24 drop-shadow-lg opacity-90">
+                <svg viewBox="0 0 80 100" class="w-full h-full overflow-visible">
+                    <path d="M 30 72 L 40 98 L 50 72 Z" fill="#FB923C" stroke="#1E293B" stroke-width="3" stroke-linejoin="round" class="flame"/>
+                    <path d="M 22 58 L 6 80 L 22 72 Z" fill="#EF4444" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M 58 58 L 74 80 L 58 72 Z" fill="#EF4444" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M 40 4 C 62 20 64 52 58 74 L 22 74 C 16 52 18 20 40 4 Z" fill="#F8FAFC" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M 40 4 C 52 12 58 22 60 32 L 20 32 C 22 22 28 12 40 4 Z" fill="#EF4444" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <circle cx="40" cy="50" r="11" fill="#38BDF8" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="36" cy="46" r="3" fill="#FFFFFF" opacity=".8"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- ================== شخصيات ثيم البنات (شخصيات أصلية) ================== -->
+        <div id="girls-characters-group" class="hidden w-full h-full relative">
+
+            <!-- 1. الأميرة لونا -->
+            <div onclick="popCharacter(this, '👑 الأميرة لونا ترحب بك في القصر!')" title="الأميرة لونا" class="interactive-char float-char-1 absolute top-24 left-[1%] sm:left-[3%] w-36 h-44 sm:w-48 sm:h-56 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 180 210" class="w-full h-full overflow-visible">
+                    <path d="M 50 84 C 24 120 30 176 52 196 L 128 196 C 150 176 156 120 130 84 Z" fill="#A855F7" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M 62 124 L 118 124 L 156 200 L 24 200 Z" fill="#F472B6" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M 31 186 L 149 186 L 156 200 L 24 200 Z" fill="#FBCFE8" stroke="#1E293B" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M 66 124 L 114 124 L 110 152 L 70 152 Z" fill="#EC4899" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <circle cx="90" cy="138" r="7" fill="#FDE047" stroke="#1E293B" stroke-width="3"/>
+                    <line x1="66" y1="132" x2="44" y2="160" stroke="#1E293B" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="66" y1="132" x2="44" y2="160" stroke="#FDE0C5" stroke-width="10" stroke-linecap="round"/>
+                    <line x1="114" y1="132" x2="140" y2="108" stroke="#1E293B" stroke-width="18" stroke-linecap="round"/>
+                    <line x1="114" y1="132" x2="140" y2="108" stroke="#FDE0C5" stroke-width="10" stroke-linecap="round"/>
+                    <circle cx="66" cy="130" r="10" fill="#FBCFE8" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="114" cy="130" r="10" fill="#FBCFE8" stroke="#1E293B" stroke-width="3.5"/>
+                    <polygon points="144,72 148,84 160,86 151,94 154,106 144,99 134,106 137,94 128,86 140,84" fill="#FDE047" stroke="#1E293B" stroke-width="3" stroke-linejoin="round" class="twinkle"/>
+                    <circle cx="90" cy="82" r="38" fill="#FDE0C5" stroke="#1E293B" stroke-width="4"/>
+                    <path d="M 50 82 C 48 44 72 34 92 38 C 112 34 134 46 130 82 C 120 64 100 58 90 62 C 80 54 60 64 50 82 Z" fill="#A855F7" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <path d="M 68 42 L 72 22 L 82 34 L 90 18 L 98 34 L 108 22 L 112 42 Z" fill="#FACC15" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <circle cx="72" cy="21" r="3.5" fill="#EF4444" stroke="#1E293B" stroke-width="1.5"/><circle cx="90" cy="17" r="3.5" fill="#38BDF8" stroke="#1E293B" stroke-width="1.5"/><circle cx="108" cy="21" r="3.5" fill="#EF4444" stroke="#1E293B" stroke-width="1.5"/>
+                    <g class="blink">
+                        <ellipse cx="75" cy="86" rx="7.5" ry="9.5" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="76" cy="87" r="5.5" fill="#7C3AED"/><circle cx="78" cy="84" r="2.2" fill="#FFFFFF"/>
+                        <ellipse cx="105" cy="86" rx="7.5" ry="9.5" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="104" cy="87" r="5.5" fill="#7C3AED"/><circle cx="106" cy="84" r="2.2" fill="#FFFFFF"/>
+                    </g>
+                    <path d="M 66 78 L 62 74 M 69 76 L 67 71 M 114 78 L 118 74 M 111 76 L 113 71" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="64" cy="98" r="5" fill="#F472B6" opacity=".6"/><circle cx="116" cy="98" r="5" fill="#F472B6" opacity=".6"/>
+                    <path d="M 80 104 Q 90 114 100 104" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+                <span class="char-label">الأميرة لونا</span>
+            </div>
+
+            <!-- 2. الجنية بيكسي -->
+            <div onclick="popCharacter(this, '🧚 الجنية بيكسي ترش عليك الغبار السحري!')" title="الجنية بيكسي" class="interactive-char float-char-2 absolute top-24 right-[1%] sm:right-[3%] w-36 h-44 sm:w-48 sm:h-56 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 180 210" class="w-full h-full overflow-visible">
+                    <g class="flap">
+                        <ellipse cx="50" cy="96" rx="30" ry="50" transform="rotate(-28 50 96)" fill="#BAE6FD" fill-opacity=".9" stroke="#1E293B" stroke-width="4"/>
+                        <ellipse cx="62" cy="140" rx="18" ry="28" transform="rotate(-18 62 140)" fill="#DDD6FE" fill-opacity=".9" stroke="#1E293B" stroke-width="4"/>
+                        <ellipse cx="130" cy="96" rx="30" ry="50" transform="rotate(28 130 96)" fill="#BAE6FD" fill-opacity=".9" stroke="#1E293B" stroke-width="4"/>
+                        <ellipse cx="118" cy="140" rx="18" ry="28" transform="rotate(18 118 140)" fill="#DDD6FE" fill-opacity=".9" stroke="#1E293B" stroke-width="4"/>
+                    </g>
+                    <line x1="80" y1="176" x2="78" y2="198" stroke="#1E293B" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="80" y1="176" x2="78" y2="198" stroke="#FDE0C5" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="100" y1="176" x2="102" y2="198" stroke="#1E293B" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="100" y1="176" x2="102" y2="198" stroke="#FDE0C5" stroke-width="7" stroke-linecap="round"/>
+                    <ellipse cx="76" cy="202" rx="11" ry="6" fill="#F472B6" stroke="#1E293B" stroke-width="3"/>
+                    <ellipse cx="104" cy="202" rx="11" ry="6" fill="#F472B6" stroke="#1E293B" stroke-width="3"/>
+                    <line x1="110" y1="136" x2="138" y2="118" stroke="#1E293B" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="110" y1="136" x2="138" y2="118" stroke="#FDE0C5" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="140" y1="116" x2="156" y2="82" stroke="#1E293B" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="140" y1="116" x2="156" y2="82" stroke="#FACC15" stroke-width="3" stroke-linecap="round"/>
+                    <polygon points="158,56 163,70 177,72 166,81 169,95 158,87 147,95 150,81 139,72 153,70" fill="#FDE047" stroke="#1E293B" stroke-width="3" stroke-linejoin="round" class="twinkle"/>
+                    <line x1="70" y1="136" x2="48" y2="156" stroke="#1E293B" stroke-width="14" stroke-linecap="round"/>
+                    <line x1="70" y1="136" x2="48" y2="156" stroke="#FDE0C5" stroke-width="7" stroke-linecap="round"/>
+                    <path d="M 68 126 L 112 126 L 126 180 L 54 180 Z" fill="#34D399" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <ellipse cx="64" cy="180" rx="14" ry="10" fill="#6EE7B7" stroke="#1E293B" stroke-width="3"/>
+                    <ellipse cx="90" cy="184" rx="14" ry="10" fill="#6EE7B7" stroke="#1E293B" stroke-width="3"/>
+                    <ellipse cx="116" cy="180" rx="14" ry="10" fill="#6EE7B7" stroke="#1E293B" stroke-width="3"/>
+                    <circle cx="90" cy="46" r="17" fill="#FB923C" stroke="#1E293B" stroke-width="4"/>
+                    <circle cx="90" cy="86" r="35" fill="#FDE0C5" stroke="#1E293B" stroke-width="4"/>
+                    <path d="M 55 84 C 52 48 74 42 92 46 C 110 42 128 52 125 84 C 114 66 98 60 90 64 C 80 58 64 66 55 84 Z" fill="#FB923C" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <circle cx="116" cy="54" r="8" fill="#F472B6" stroke="#1E293B" stroke-width="3"/><circle cx="116" cy="54" r="3" fill="#FDE047"/>
+                    <g class="blink">
+                        <ellipse cx="76" cy="88" rx="7" ry="9" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="77" cy="89" r="5" fill="#0D9488"/><circle cx="79" cy="86" r="2" fill="#FFFFFF"/>
+                        <ellipse cx="104" cy="88" rx="7" ry="9" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="103" cy="89" r="5" fill="#0D9488"/><circle cx="105" cy="86" r="2" fill="#FFFFFF"/>
+                    </g>
+                    <circle cx="66" cy="100" r="4.5" fill="#F472B6" opacity=".6"/><circle cx="114" cy="100" r="4.5" fill="#F472B6" opacity=".6"/>
+                    <path d="M 81 106 Q 90 115 99 106" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+                <span class="char-label">الجنية بيكسي</span>
+            </div>
+
+            <!-- 3. القطة بيلا -->
+            <div onclick="popCharacter(this, '🐱 ميو! القطة بيلا تريد اللعب معك!')" title="القطة بيلا" class="interactive-char float-char-3 absolute bottom-20 left-[1%] sm:left-[4%] w-36 h-40 sm:w-48 sm:h-52 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 160 170" class="w-full h-full overflow-visible">
+                    <path d="M 108 150 Q 150 150 146 112 Q 144 100 134 106" fill="none" stroke="#1E293B" stroke-width="16" stroke-linecap="round"/>
+                    <path d="M 108 150 Q 150 150 146 112 Q 144 100 134 106" fill="none" stroke="#FDBA74" stroke-width="9" stroke-linecap="round"/>
+                    <ellipse cx="80" cy="148" rx="34" ry="20" fill="#FDBA74" stroke="#1E293B" stroke-width="4"/>
+                    <ellipse cx="62" cy="162" rx="12" ry="7" fill="#FFF7ED" stroke="#1E293B" stroke-width="3"/>
+                    <ellipse cx="98" cy="162" rx="12" ry="7" fill="#FFF7ED" stroke="#1E293B" stroke-width="3"/>
+                    <polygon points="34,66 30,18 70,44" fill="#FDBA74" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <polygon points="42,58 40,32 60,46" fill="#F9A8D4"/>
+                    <polygon points="126,66 130,18 90,44" fill="#FDBA74" stroke="#1E293B" stroke-width="4" stroke-linejoin="round"/>
+                    <polygon points="118,58 120,32 100,46" fill="#F9A8D4"/>
+                    <ellipse cx="80" cy="90" rx="52" ry="44" fill="#FDBA74" stroke="#1E293B" stroke-width="4"/>
+                    <path d="M 80 48 L 80 62 M 66 51 L 69 63 M 94 51 L 91 63" stroke="#F97316" stroke-width="4" stroke-linecap="round"/>
+                    <ellipse cx="80" cy="108" rx="24" ry="17" fill="#FFF7ED"/>
+                    <g class="blink"><ellipse cx="58" cy="88" rx="8" ry="10" fill="#1E293B"/><circle cx="61" cy="84" r="3" fill="#FFFFFF"/><ellipse cx="102" cy="88" rx="8" ry="10" fill="#1E293B"/><circle cx="105" cy="84" r="3" fill="#FFFFFF"/></g>
+                    <polygon points="80,100 74,106 86,106" fill="#EC4899" stroke="#1E293B" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M 68 114 Q 74 122 80 114 Q 86 122 92 114" fill="none" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 36 100 L 14 94 M 36 108 L 14 110 M 124 100 L 146 94 M 124 108 L 146 110" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="46" cy="106" r="6" fill="#F472B6" opacity=".55"/><circle cx="114" cy="106" r="6" fill="#F472B6" opacity=".55"/>
+                    <path d="M 108 44 L 128 30 L 126 56 Z" fill="#2DD4BF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M 108 44 L 90 32 L 92 58 Z" fill="#2DD4BF" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <circle cx="108" cy="44" r="6" fill="#14B8A6" stroke="#1E293B" stroke-width="3"/>
+                </svg>
+                <span class="char-label">القطة بيلا</span>
+            </div>
+
+            <!-- 4. وحيد القرن قوس قزح -->
+            <div onclick="popCharacter(this, '🦄 وحيد القرن قوس قزح يطير بالأحلام!')" title="وحيد القرن" class="interactive-char float-char-4 absolute bottom-20 right-[1%] sm:right-[4%] w-36 h-40 sm:w-48 sm:h-52 drop-shadow-xl opacity-95">
+                <svg viewBox="0 0 160 180" class="w-full h-full overflow-visible">
+                    <circle cx="36" cy="100" r="15" fill="#EF4444" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="36" cy="72" r="15" fill="#FB923C" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="50" cy="48" r="15" fill="#FACC15" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="80" cy="40" r="15" fill="#4ADE80" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="110" cy="48" r="15" fill="#38BDF8" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="124" cy="72" r="15" fill="#A855F7" stroke="#1E293B" stroke-width="3.5"/>
+                    <circle cx="124" cy="100" r="15" fill="#F472B6" stroke="#1E293B" stroke-width="3.5"/>
+                    <ellipse cx="80" cy="162" rx="34" ry="16" fill="#FFFFFF" stroke="#1E293B" stroke-width="4"/>
+                    <polygon points="80,4 69,48 91,48" fill="#FACC15" stroke="#1E293B" stroke-width="3.5" stroke-linejoin="round"/>
+                    <path d="M 73 36 L 87 31 M 71 44 L 89 38" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                    <ellipse cx="58" cy="52" rx="10" ry="16" transform="rotate(-18 58 52)" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5"/>
+                    <ellipse cx="102" cy="52" rx="10" ry="16" transform="rotate(18 102 52)" fill="#FFFFFF" stroke="#1E293B" stroke-width="3.5"/>
+                    <ellipse cx="80" cy="98" rx="42" ry="40" fill="#FFFFFF" stroke="#1E293B" stroke-width="4"/>
+                    <ellipse cx="80" cy="120" rx="26" ry="18" fill="#FBCFE8" stroke="#1E293B" stroke-width="3"/>
+                    <g class="blink">
+                        <ellipse cx="62" cy="92" rx="7" ry="9" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="63" cy="93" r="5" fill="#A855F7"/><circle cx="65" cy="90" r="2" fill="#FFFFFF"/>
+                        <ellipse cx="98" cy="92" rx="7" ry="9" fill="#FFFFFF" stroke="#1E293B" stroke-width="3"/><circle cx="97" cy="93" r="5" fill="#A855F7"/><circle cx="99" cy="90" r="2" fill="#FFFFFF"/>
+                    </g>
+                    <path d="M 55 84 L 51 80 M 105 84 L 109 80" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                    <ellipse cx="72" cy="118" rx="2.5" ry="3.5" fill="#BE185D"/><ellipse cx="88" cy="118" rx="2.5" ry="3.5" fill="#BE185D"/>
+                    <path d="M 72 128 Q 80 135 88 128" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+                    <circle cx="50" cy="108" r="5" fill="#F472B6" opacity=".55"/><circle cx="110" cy="108" r="5" fill="#F472B6" opacity=".55"/>
+                </svg>
+                <span class="char-label">وحيد القرن</span>
+            </div>
+
+            <!-- 5. فراشة في المنتصف -->
+            <div onclick="popCharacter(this, '🦋 فراشة الأحلام تطير حولك!')" title="فراشة" class="interactive-char float-char-1 absolute top-40 left-[44%] w-20 h-20 sm:w-24 sm:h-24 drop-shadow-lg opacity-90">
+                <svg viewBox="0 0 80 80" class="w-full h-full overflow-visible">
+                    <g class="flap" style="transform-origin:40px 40px">
+                        <ellipse cx="22" cy="28" rx="18" ry="20" transform="rotate(-20 22 28)" fill="#F472B6" stroke="#1E293B" stroke-width="3.5"/>
+                        <ellipse cx="58" cy="28" rx="18" ry="20" transform="rotate(20 58 28)" fill="#F472B6" stroke="#1E293B" stroke-width="3.5"/>
+                        <ellipse cx="27" cy="54" rx="12" ry="13" transform="rotate(20 27 54)" fill="#C084FC" stroke="#1E293B" stroke-width="3.5"/>
+                        <ellipse cx="53" cy="54" rx="12" ry="13" transform="rotate(-20 53 54)" fill="#C084FC" stroke="#1E293B" stroke-width="3.5"/>
+                        <circle cx="20" cy="26" r="5" fill="#FFFFFF" opacity=".8"/><circle cx="60" cy="26" r="5" fill="#FFFFFF" opacity=".8"/>
+                    </g>
+                    <ellipse cx="40" cy="42" rx="4.5" ry="20" fill="#1E293B"/>
+                    <path d="M 38 24 Q 32 10 26 8 M 42 24 Q 48 10 54 8" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- التلال السفلية (يتغير لونها مع الثيم) -->
+        <svg class="absolute bottom-0 left-0 w-full h-28 sm:h-40" preserveAspectRatio="none" viewBox="0 0 1440 200">
+            <path id="hill-back" d="M0,110 C320,30 580,170 940,80 C1180,20 1340,90 1440,70 L1440,200 L0,200 Z" fill="#86EFAC" stroke="#1E293B" stroke-width="4"/>
+            <path id="hill-front" d="M0,145 C280,190 520,85 880,140 C1140,180 1310,110 1440,135 L1440,200 L0,200 Z" fill="#4ADE80" stroke="#1E293B" stroke-width="4"/>
+        </svg>
+    </div>
+
+    <!-- شريط الرأس العلوي -->
+    <header class="relative z-30 pt-3 px-3 sm:px-6">
+        <div class="max-w-7xl mx-auto bg-white/95 backdrop-blur-md rounded-3xl cartoon-box px-4 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+            
+            <!-- الشعار: 1 2 3 ! مع Goodykido -->
+            <div onclick="resetFilters()" class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer group">
+                <div class="bg-amber-100 border-3 border-inkDark rounded-2xl px-2.5 py-1 shadow-[0_4px_0_#1E293B] flex items-center gap-1 select-none" dir="ltr">
+                    <span class="cartoon-badge-num text-xl sm:text-3xl font-black text-sunYellow -rotate-12 inline-block">1</span>
+                    <span class="cartoon-badge-num text-xl sm:text-3xl font-black text-candyBlue rotate-6 inline-block">2</span>
+                    <span class="cartoon-badge-num text-xl sm:text-3xl font-black text-coralRed -rotate-6 inline-block">3</span>
+                    <span class="cartoon-badge-num text-xl sm:text-3xl font-black text-grassGreen rotate-12 inline-block">!</span>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="cartoon-text-outline text-xl sm:text-3xl font-black tracking-wide flex items-center leading-none" dir="ltr">
+                        <span class="text-candyBlue">G</span>
+                        <span class="text-sunYellow">o</span>
+                        <span class="text-grassGreen">o</span>
+                        <span class="text-orangePop">d</span>
+                        <span class="text-grapePurple">y</span>
+                        <span class="text-coralRed">k</span>
+                        <span class="text-candyBlue">i</span>
+                        <span class="text-sunYellow">d</span>
+                        <span class="text-grassGreen">o</span>
+                    </h1>
+                    <span id="brand-subtitle" class="bg-sunYellow text-inkDark text-[11px] sm:text-xs font-black px-2 py-0.5 rounded-full border-2 border-inkDark w-fit mt-1">
+                        جوديكيدو 🎈
+                    </span>
+                </div>
+            </div>
+
+            <!-- زر التبديل السريع بين ثيم الأولاد وثيم البنات (في الأعلى) -->
+            <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border-3 border-inkDark shadow-[0_4px_0_#1E293B] gap-1.5">
+                <button onclick="switchTheme('boys')" id="btn-theme-boys" class="px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition bg-candyBlue text-white border-2 border-inkDark shadow-[0_2px_0_#1E293B]">
+                    <span>👦</span>
+                    <span id="label-theme-boys">أولاد</span>
+                </button>
+                <button onclick="switchTheme('girls')" id="btn-theme-girls" class="px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition text-inkDark hover:bg-pink-100 border-2 border-transparent">
+                    <span>👧</span>
+                    <span id="label-theme-girls">بنات</span>
+                </button>
+            </div>
+
+            <!-- أزرار التحكم الجانبية (الحساب + الكوكب للغات + القفل) -->
+            <div class="flex items-center gap-2 sm:gap-2.5 relative">
+                
+                <!-- زر الحساب الشخصي (Google / Apple / الملف النشط) -->
+
+
+                <!-- زر الكوكب للغات -->
+                <div class="relative" id="lang-menu-container">
+                    <button onclick="toggleLangMenu(event)" id="planet-lang-btn" title="تغيير اللغة" class="cartoon-btn h-11 sm:h-12 px-2.5 sm:px-3 rounded-2xl bg-sky-300 hover:bg-sky-200 text-inkDark flex items-center gap-1.5 shrink-0">
+                        <svg viewBox="0 0 48 48" class="w-6 h-6 sm:w-7 sm:h-7 shrink-0 overflow-visible">
+                            <path d="M 6 31 C 2 26 10 17 24 13 C 38 9 46 13 43 19" fill="none" stroke="#FFD93D" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M 6 31 C 2 26 10 17 24 13 C 38 9 46 13 43 19" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="24" cy="24" r="14" fill="#3B82F6" stroke="#1E293B" stroke-width="3.2"/>
+                            <path d="M 16 17 Q 21 15 23 20 Q 20 24 15 22 Z" fill="#4ADE80" stroke="#1E293B" stroke-width="1.8" stroke-linejoin="round"/>
+                            <path d="M 27 23 Q 33 22 33 28 Q 28 32 25 27 Z" fill="#4ADE80" stroke="#1E293B" stroke-width="1.8" stroke-linejoin="round"/>
+                            <path d="M 43 19 C 46 24 38 32 24 36 C 10 40 3 36 6 31" fill="none" stroke="#FFD93D" stroke-width="4.5" stroke-linecap="round"/>
+                            <path d="M 43 19 C 46 24 38 32 24 36 C 10 40 3 36 6 31" fill="none" stroke="#1E293B" stroke-width="2.2" stroke-linecap="round"/>
+                        </svg>
+                        <span id="current-lang-badge" class="font-black text-xs uppercase bg-white px-1.5 py-0.5 rounded-lg border-2 border-inkDark">AR</span>
+                    </button>
+
+                    <!-- قائمة اللغات المنسدلة -->
+                    <div id="lang-dropdown-menu" class="hidden absolute top-full mt-3 end-0 w-48 bg-white rounded-3xl cartoon-box p-2 z-50 flex flex-col gap-1">
+                        <button onclick="selectUILanguage('ar')" data-lang="ar" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>🇸🇦 العربية</span><i class="ph-bold ph-check text-grassDark check-icon"></i></button>
+                        <button onclick="selectUILanguage('en')" data-lang="en" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>🇬🇧 English</span><i class="ph-bold ph-check text-grassDark check-icon hidden"></i></button>
+                        <button onclick="selectUILanguage('fr')" data-lang="fr" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>🇫🇷 Français</span><i class="ph-bold ph-check text-grassDark check-icon hidden"></i></button>
+                        <button onclick="selectUILanguage('tr')" data-lang="tr" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>🇹🇷 Türkçe</span><i class="ph-bold ph-check text-grassDark check-icon hidden"></i></button>
+                        <button onclick="selectUILanguage('es')" data-lang="es" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>🇪🇸 Español</span><i class="ph-bold ph-check text-grassDark check-icon hidden"></i></button>
+                        <button onclick="selectUILanguage('ckb')" data-lang="ckb" class="lang-option w-full px-3 py-2 rounded-2xl font-black text-sm flex items-center justify-between hover:bg-sky-100"><span>☀️ کوردی سۆرانی</span><i class="ph-bold ph-check text-grassDark check-icon hidden"></i></button>
+                        <div class="border-t-2 border-slate-200 my-0.5"></div>
+                        <button onclick="toggleShowAllLanguages()" id="show-all-langs-toggle" class="w-full px-3 py-1.5 rounded-xl font-black text-xs text-slate-600 hover:bg-amber-100 flex items-center justify-between">
+                            <span id="show-all-langs-label">كل اللغات معاً</span>
+                            <span id="show-all-langs-dot" class="w-3 h-3 rounded-full border-2 border-inkDark bg-white"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- زر القفل لإضافة الروابط وإدارة الأهل -->
+                <button onclick="openParentGate()" id="lock-btn" title="إضافة روابط وإدارة الأهل" class="cartoon-btn w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-sunYellow hover:bg-amber-300 text-inkDark flex items-center justify-center shrink-0">
+                    <i class="ph-fill ph-lock-key text-xl sm:text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط فئات المحتوى -->
+    <section class="relative z-20 max-w-7xl mx-auto w-full px-3 sm:px-6 pt-5 pb-2">
+        <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-3" id="category-bar">
+            <button onclick="setCategory('all')" id="cat-all" data-active-bg="bg-candyBlue" class="cat-btn cartoon-btn shrink-0 px-5 py-2.5 rounded-2xl font-black text-base flex items-center gap-2 bg-candyBlue text-white">
+                <i class="ph-fill ph-sparkle text-xl text-sunYellow"></i>
+                <span id="cat-label-all">كل البرامج</span>
+            </button>
+            <button onclick="setCategory('songs')" id="cat-songs" data-active-bg="bg-coralRed" class="cat-btn cartoon-btn shrink-0 px-5 py-2.5 rounded-2xl font-black text-base flex items-center gap-2 bg-white text-inkDark">
+                <i class="ph-fill ph-music-notes text-xl text-coralRed"></i>
+                <span id="cat-label-songs">أناشيد وأغاني</span>
+            </button>
+            <button onclick="setCategory('cartoons')" id="cat-cartoons" data-active-bg="bg-grapePurple" class="cat-btn cartoon-btn shrink-0 px-5 py-2.5 rounded-2xl font-black text-base flex items-center gap-2 bg-white text-inkDark">
+                <i class="ph-fill ph-television-simple text-xl text-grapePurple"></i>
+                <span id="cat-label-cartoons">كرتون ومغامرات</span>
+            </button>
+            <button onclick="setCategory('learning')" id="cat-learning" data-active-bg="bg-grassGreen" class="cat-btn cartoon-btn shrink-0 px-5 py-2.5 rounded-2xl font-black text-base flex items-center gap-2 bg-white text-inkDark">
+                <i class="ph-fill ph-rocket-launch text-xl text-grassDark"></i>
+                <span id="cat-label-learning">تعليم وعلوم</span>
+            </button>
+            <button onclick="setCategory('stories')" id="cat-stories" data-active-bg="bg-orangePop" class="cat-btn cartoon-btn shrink-0 px-5 py-2.5 rounded-2xl font-black text-base flex items-center gap-2 bg-white text-inkDark">
+                <i class="ph-fill ph-book-open-text text-xl text-orangePop"></i>
+                <span id="cat-label-stories">قصص وحكايات</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- منطقة عرض الفيديوهات الرئيسية -->
+    <main class="relative z-20 flex-1 max-w-7xl mx-auto w-full px-3 sm:px-6 py-3">
+        
+        <!-- صف الاقتراحات الذكية (يظهر عند تفعيل وضع الاقتراح الذكي وتوفر فيديوهات) -->
+        <div id="recommended-section" class="hidden mb-8 bg-white/90 backdrop-blur-sm rounded-3xl cartoon-box p-5">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">✨</span>
+                    <h2 id="rec-section-title" class="text-xl sm:text-2xl font-black text-inkDark">مقترح لك بناءً على مشاهداتك</h2>
+                </div>
+                <span id="rec-badge" class="bg-grapePurple text-white font-black px-3 py-1 rounded-full text-xs border-2 border-inkDark">محرك الاقتراح الذكي</span>
+            </div>
+            <div id="recommended-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </div>
+
+        <section aria-label="القنوات العامة" class="mb-7 bg-white rounded-3xl cartoon-box p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4"><h2 class="font-black text-xl">قنواتنا للجميع</h2><span class="text-xs font-bold bg-sky-100 rounded-full px-3 py-2">مكتبة عامة • قنوات المجتمع</span></div>
+          <p id="library-status" role="status" aria-live="polite" class="font-bold text-sm mb-3">جارٍ تحميل المكتبة العامة…</p>
+          <button id="library-retry" type="button" onclick="loadLibrary()" class="hidden underline font-bold mb-3">إعادة المحاولة</button>
+          <div id="public-channels" class="flex flex-wrap gap-3"></div>
+        </section>
+        <!-- رأس قائمة الفيديوهات الكاملة -->
+        <div id="grid-header-bar" class="hidden flex items-center justify-between mb-5 bg-white/90 px-5 py-3 rounded-2xl border-3 border-inkDark shadow-[0_4px_0_#1E293B]">
+            <div class="flex items-center gap-2.5">
+                <span class="text-2xl">🎬</span>
+                <h2 id="grid-title-text" class="text-xl sm:text-2xl font-black text-inkDark">قائمة الفيديوهات المضافة</h2>
+            </div>
+            <span id="video-count-badge" class="bg-sunYellow text-inkDark font-black px-4 py-1 rounded-full text-sm border-2 border-inkDark">
+                0 فيديو
+            </span>
+        </div>
+
+        <div id="videos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+        <div class="text-center my-6"><button id="load-more" type="button" onclick="loadMoreVideos()" class="hidden cartoon-btn bg-sunYellow px-6 py-3 rounded-2xl font-black">تحميل المزيد من الفيديوهات</button></div>
+        <!-- حالة البداية الفارغة (صفر فيديوهات حتى تقوم أنت بإضافة روابطك) -->
+        <div id="empty-state" class="max-w-2xl mx-auto my-6 bg-white/95 backdrop-blur-sm rounded-[2rem] cartoon-box p-8 sm:p-10 text-center">
+            <div class="w-32 h-32 mx-auto mb-4 relative">
+                <svg viewBox="0 0 160 150" class="w-full h-full overflow-visible">
+                    <line x1="60" y1="35" x2="35" y2="10" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="35" cy="10" r="7" fill="#FF5D6C" stroke="#1E293B" stroke-width="3.5"/>
+                    <line x1="100" y1="35" x2="125" y2="10" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
+                    <circle cx="125" cy="10" r="7" fill="#FFD93D" stroke="#1E293B" stroke-width="3.5"/>
+                    <rect x="20" y="35" width="120" height="90" rx="22" fill="#3B82F6" stroke="#1E293B" stroke-width="5"/>
+                    <rect x="33" y="48" width="76" height="64" rx="14" fill="#E0F2FE" stroke="#1E293B" stroke-width="4"/>
+                    <circle cx="56" cy="74" r="5" fill="#1E293B"/>
+                    <circle cx="86" cy="74" r="5" fill="#1E293B"/>
+                    <path d="M 63 86 Q 71 95 79 86" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h2 id="empty-title" class="text-2xl sm:text-3xl font-black text-inkDark mb-2">المكتبة العامة فارغة حالياً</h2>
+            <p id="empty-subtitle" class="text-slate-600 font-bold text-base sm:text-lg mb-6 max-w-md mx-auto leading-relaxed">
+                الصق رابط قناة YouTube وسنضيف كل فيديوهاتها تلقائياً.
+            </p>
+            <button onclick="openParentGate()" class="cartoon-btn bg-grassGreen hover:bg-green-400 text-inkDark px-7 py-3.5 rounded-2xl font-black text-lg inline-flex items-center gap-2.5">
+                <i class="ph-fill ph-plus-circle text-2xl"></i>
+                <span id="empty-add-btn">إضافة قناة</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="relative z-20 mt-10 pb-6 pt-4 text-center px-4">
+        <div class="inline-block bg-white/90 backdrop-blur-sm px-6 py-2.5 rounded-full border-3 border-inkDark shadow-[0_4px_0_#1E293B]">
+            <p class="font-black text-inkDark text-sm sm:text-base flex items-center justify-center gap-2">
+                <span>🎨</span>
+                <span><span class="text-candyBlue font-cartoon">Goodykido</span> • <span id="footer-tagline">عالمك الكارتوني الآمن</span></span>
+                <span>🌈</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ================== مشغل الفيديو الآمن ================== -->
+    <div id="safe-player-modal" class="fixed inset-0 z-50 hidden bg-sky-950/90 backdrop-blur-md flex flex-col">
+        <div class="bg-sunYellow border-b-4 border-inkDark px-4 py-3 flex items-center justify-between gap-3 shadow-md">
+            <button onclick="closeSafePlayer()" class="cartoon-btn bg-coralRed text-white px-5 py-2.5 rounded-2xl font-black text-base sm:text-lg flex items-center gap-2">
+                <i id="player-back-icon" class="ph-bold ph-arrow-right text-2xl"></i>
+                <span id="player-back-text">رجوع</span>
+            </button>
+            <h3 data-user-content id="player-video-title" class="text-inkDark font-black text-base sm:text-2xl truncate max-w-lg text-center bg-white px-4 py-1.5 rounded-2xl border-3 border-inkDark"></h3>
+            <button onclick="playNextSafeVideo()" class="cartoon-btn bg-grassGreen text-inkDark px-4 py-2.5 rounded-2xl font-black text-sm sm:text-lg flex items-center gap-2">
+                <span id="player-next-text" class="hidden sm:inline">التالي</span>
+                <i class="ph-bold ph-skip-forward text-2xl"></i>
+            </button>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center p-3 sm:p-6 relative">
+            <div class="w-full max-w-5xl aspect-video bg-inkDark rounded-[2rem] overflow-hidden border-6 border-white shadow-[0_12px_0_#1E293B] relative">
+                <iframe id="youtube-iframe" class="w-full h-full" src="" title="Safe Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- دروع حماية شفافة لمنع الخروج إلى يوتيوب -->
+                <div class="absolute top-0 left-0 right-0 h-16 bg-transparent z-10"></div>
+                <div class="absolute bottom-2 right-2 w-36 h-14 bg-transparent z-10"></div>
+
+                <!-- شاشة انتهاء المشاهدة -->
+                <div id="safe-end-screen" class="hidden absolute inset-0 z-20 bg-sky-500 flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-24 h-24 rounded-full bg-sunYellow border-4 border-inkDark shadow-[0_6px_0_#1E293B] flex items-center justify-center text-5xl mb-4 animate-bounce">🏆</div>
+                    <h2 id="end-title" class="cartoon-text-outline text-4xl sm:text-5xl font-black text-white mb-4">أحسنت يا بطل!</h2>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <button onclick="playNextSafeVideo()" class="cartoon-btn bg-grassGreen text-inkDark px-7 py-4 rounded-2xl font-black text-xl">الفيديو التالي</button>
+                        <button onclick="closeSafePlayer()" class="cartoon-btn bg-sunYellow text-inkDark px-7 py-4 rounded-2xl font-black text-xl">العودة للقائمة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white border-t-4 border-inkDark px-4 py-2.5 flex items-center justify-between text-xs sm:text-sm text-inkDark font-black">
+            <div class="flex items-center gap-2"><span>🛡️</span><span id="safe-mode-badge">وضع المشاهدة الآمنة نشط (ممنوع الخروج ليوتيوب)</span></div>
+            <button onclick="triggerEndScreen()" id="finish-watch-btn" class="cartoon-btn bg-sunYellow px-4 py-1 rounded-xl text-xs sm:text-sm font-black">انتهيت من المشاهدة ✨</button>
+        </div>
+    </div>
+
+    <!-- ================== نافذة بوابة الأهل (مسائل ضرب وقسمة) ================== -->
+    <div id="parent-gate-modal" class="fixed inset-0 z-50 hidden bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2rem] max-w-md w-full p-6 sm:p-8 cartoon-box text-center relative">
+            <button onclick="closeParentGate()" class="absolute top-4 end-4 w-10 h-10 rounded-xl bg-slate-100 hover:bg-coralRed hover:text-white border-2 border-inkDark flex items-center justify-center font-black transition">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+            <div class="w-16 h-16 bg-sunYellow text-inkDark rounded-2xl border-3 border-inkDark shadow-[0_4px_0_#1E293B] flex items-center justify-center mx-auto mb-4 text-3xl">
+                <i class="ph-fill ph-lock-key"></i>
+            </div>
+            <h3 id="gate-title" class="text-2xl font-black text-inkDark mb-1">بوابة الأهل الذكية</h3>
+            <p id="gate-subtitle" class="text-slate-600 font-bold text-sm mb-5">حل مسألة الضرب أو القسمة التالية للمتابعة:</p>
+            <div class="bg-sky-100 border-3 border-inkDark rounded-2xl py-3 px-6 mb-4 shadow-[0_4px_0_#1E293B]">
+                <span id="math-question" class="text-3xl font-black text-inkDark tracking-wider" dir="ltr">7 × 8 = ?</span>
+            </div>
+            <input type="number" id="math-answer-input" placeholder="؟" class="w-full text-center text-2xl font-black py-3 px-4 rounded-2xl border-3 border-inkDark focus:bg-amber-50 focus:outline-none mb-2">
+            <p id="math-error-msg" class="hidden text-coralRed font-black text-sm mb-2">إجابة خاطئة، حاول مرة أخرى!</p>
+            <button onclick="verifyParentGate()" id="gate-unlock-btn" class="cartoon-btn w-full bg-grassGreen text-inkDark py-3.5 rounded-2xl font-black text-lg mt-3">فتح القفل 🔓</button>
+        </div>
+    </div>
+
+    <!-- ================== لوحة تحكم الأهل (إضافة روابط يوتيوب + إدارة المكتبة) ================== -->
+    <div id="parent-dashboard-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-[2rem] max-w-3xl w-full max-h-[90vh] flex flex-col cartoon-box overflow-hidden">
+            <div class="bg-sunYellow border-b-4 border-inkDark px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white rounded-xl border-2 border-inkDark flex items-center justify-center text-xl">🎬</div>
+                    <div>
+                        <h3 class="text-xl font-black text-inkDark">إدارة الروابط والمحتوى</h3>
+                        <p class="text-xs text-inkDark/80 font-extrabold">قنوات وفيديوهات يختارها المدير وتظهر لجميع زوار الموقع</p>
+                    </div>
+                </div>
+                <button onclick="closeParentDashboard()" class="cartoon-btn bg-coralRed text-white w-10 h-10 rounded-xl flex items-center justify-center"><i class="ph-bold ph-x text-xl"></i></button>
+            </div>
+
+            <div class="p-5 sm:p-6 overflow-y-auto space-y-6 flex-1 bg-amber-50/40">
+                <section class="bg-emerald-50 border-3 border-inkDark rounded-3xl p-5">
+                    <h4 class="font-black text-lg mb-3">حساب العائلة</h4>
+                <button onclick="openAccountModal()" id="header-account-btn" class="cartoon-btn h-11 sm:h-12 px-3 sm:px-3.5 rounded-2xl bg-emerald-300 hover:bg-emerald-200 text-inkDark flex items-center gap-2 font-black text-xs sm:text-sm">
+                    <i class="ph-fill ph-user-circle text-xl sm:text-2xl"></i>
+                    <span id="header-account-name">تسجيل الدخول</span>
+                </button>
+                    <p id="parent-account-email" dir="ltr" class="text-sm font-bold mt-3 break-all"></p>
+                </section>
+                <!-- ================== إضافة قناة YouTube ================== -->
+                <section class="bg-sky-50 border-3 border-inkDark rounded-3xl p-5">
+                  <h4 class="font-black text-lg mb-2 flex items-center gap-2"><i class="ph-fill ph-youtube-logo text-coralRed text-2xl"></i><span>إضافة قناة YouTube كاملة</span></h4>
+                  <p id="publisher-status" role="status" class="text-sm font-bold mb-3">الصق رابط القناة وسنجلب اسمها وكل فيديوهاتها تلقائياً، ثم نتابع الفيديوهات الجديدة.</p>
+
+                  <!-- ربط YouTube (مفتاح API) -->
+                  <div id="youtube-setup-placeholder" class="mb-4 rounded-2xl border-2 border-amber-400 bg-amber-50 p-4">
+                    <div id="yt-key-ok" class="hidden flex items-center justify-between gap-3">
+                      <p class="font-black text-sm">✅ تم ربط YouTube</p>
+                      <button type="button" onclick="clearYtKey()" class="text-xs font-black underline">تغيير المفتاح</button>
+                    </div>
+                    <div id="yt-key-form">
+                      <p class="font-black text-sm mb-1">ربط الموقع مع YouTube</p>
+                      <p class="text-xs font-bold mb-2">لإضافة القنوات الكاملة الصق مفتاح YouTube Data API v3. (إضافة الفيديوهات المنفردة تعمل بدون مفتاح.)</p>
+                      <div class="flex gap-2">
+                        <input id="yt-api-key" type="password" dir="ltr" autocomplete="off" placeholder="AIza..." class="flex-1 min-w-0 border-3 border-inkDark rounded-2xl px-3 py-2 text-sm font-bold">
+                        <button type="button" onclick="saveYtKey()" class="cartoon-btn bg-grassGreen px-4 py-2 rounded-2xl font-black text-sm">حفظ</button>
+                      </div>
+                      <p class="text-[11px] mt-2 text-slate-600 font-bold">Google Cloud Console ← فعّل YouTube Data API v3 ← Credentials ← Create API key (وقيّده بنطاق موقعك).</p>
+                    </div>
+                  </div>
+
+                  <label for="new-channel-url" class="block text-sm font-black mb-2">رابط القناة</label>
+                  <input id="new-channel-url" type="url" dir="ltr" autocomplete="off" placeholder="https://www.youtube.com/@channel" class="w-full border-3 border-inkDark rounded-2xl p-3 mb-2">
+                  <p id="channel-fetch-status" class="text-xs font-black mb-3 hidden"></p>
+
+                  <div id="channel-preview" class="hidden mb-3 flex items-center gap-3 bg-white border-3 border-inkDark rounded-2xl p-3">
+                    <img id="channel-preview-thumb" alt="" class="w-14 h-14 rounded-full border-2 border-inkDark object-cover bg-sky-100">
+                    <div class="min-w-0">
+                      <p id="channel-preview-title" class="font-black text-base truncate"></p>
+                      <p id="channel-preview-meta" dir="ltr" class="text-xs font-bold text-slate-600 truncate"></p>
+                    </div>
+                  </div>
+
+                  <div id="channel-options" class="hidden">
+                    <label class="block text-sm font-black mb-2">لغة القناة</label>
+                    <div id="channel-lang-chips" class="flex flex-wrap gap-2 mb-1"></div>
+                    <p id="channel-lang-hint" class="text-[11px] font-bold text-slate-600 mb-3"></p>
+                    <input type="hidden" id="new-channel-lang" value="">
+                    <label for="new-channel-category" class="block text-sm font-black mb-2">قسم القناة</label>
+                    <select id="new-channel-category" class="w-full px-4 py-2.5 rounded-2xl border-3 border-inkDark font-black text-sm bg-white mb-3">
+                      <option value="songs">🎵 أناشيد وأغاني</option>
+                      <option value="cartoons" selected>📺 كرتون ومغامرات</option>
+                      <option value="learning">🚀 تعليم وعلوم</option>
+                      <option value="stories">📖 قصص وحكايات</option>
+                    </select>
+                  </div>
+                  <button id="publish-channel" type="button" onclick="addChannel()" disabled class="cartoon-btn bg-sunYellow px-5 py-3 rounded-2xl font-black opacity-50">إضافة القناة وكل فيديوهاتها</button>
+                  <p class="text-[11px] font-bold text-slate-600 mt-2">نتحقق من الفيديوهات الجديدة كل 15 دقيقة أثناء فتح الموقع، ونتجاهل الفيديوهات الخاصة وغير القابلة للتضمين.</p>
+                  <div id="admin-channels" class="space-y-3 mt-4"></div>
+                </section>
+
+                <!-- ================== إضافة فيديو YouTube ================== -->
+                <div class="bg-white border-3 border-inkDark rounded-3xl p-5 shadow-[0_4px_0_#1E293B]">
+                    <h4 class="font-black text-lg text-inkDark mb-3 flex items-center gap-2">
+                        <i class="ph-fill ph-plus-circle text-grassDark text-2xl"></i>
+                        <span>إضافة فيديو من YouTube</span>
+                    </h4>
+                    <label class="block text-xs font-black text-slate-600 mb-1">رابط الفيديو</label>
+                    <input type="url" id="new-video-url" autocomplete="off" placeholder="https://www.youtube.com/watch?v=..." dir="ltr" class="w-full px-4 py-2.5 rounded-2xl border-3 border-inkDark font-bold text-sm focus:bg-sky-50 focus:outline-none mb-2">
+                    <p id="video-fetch-status" class="text-xs font-black mb-3 hidden"></p>
+
+                    <div id="video-preview" class="hidden">
+                        <div class="flex gap-3 bg-sky-50 border-3 border-inkDark rounded-2xl p-3 mb-3">
+                            <img id="video-preview-thumb" alt="" class="w-28 aspect-video rounded-xl border-2 border-inkDark object-cover bg-sky-100 shrink-0">
+                            <div class="min-w-0 flex-1">
+                                <label class="block text-[11px] font-black text-slate-600">العنوان (تلقائي)</label>
+                                <input type="text" id="new-video-title" readonly class="w-full bg-transparent font-black text-sm mb-1 truncate">
+                                <label class="block text-[11px] font-black text-slate-600">القناة (تلقائي)</label>
+                                <input type="text" id="new-video-channel" readonly class="w-full bg-transparent font-bold text-sm truncate">
+                            </div>
+                        </div>
+                        <label class="block text-xs font-black text-slate-600 mb-2">لغة الفيديو</label>
+                        <div id="video-lang-chips" class="flex flex-wrap gap-2 mb-1"></div>
+                        <p id="video-lang-hint" class="text-[11px] font-bold text-slate-600 mb-3"></p>
+                        <input type="hidden" id="new-video-lang" value="">
+                        <label class="block text-xs font-black text-slate-600 mb-1">القسم</label>
+                        <select id="new-video-category" class="w-full px-4 py-2.5 rounded-2xl border-3 border-inkDark font-black text-sm bg-white mb-3">
+                            <option value="songs">🎵 أناشيد وأغاني</option>
+                            <option value="cartoons" selected>📺 كرتون ومغامرات</option>
+                            <option value="learning">🚀 تعليم وعلوم</option>
+                            <option value="stories">📖 قصص وحكايات</option>
+                        </select>
+                    </div>
+                    <button id="publish-video" type="button" onclick="addCustomVideo()" disabled class="cartoon-btn w-full bg-grassGreen text-inkDark py-3 rounded-2xl font-black text-base flex items-center justify-center gap-2 opacity-50">
+                        <i class="ph-bold ph-plus text-xl"></i>
+                        <span>إضافة الفيديو إلى المكتبة</span>
+                    </button>
+                </div>
+
+                <!-- قائمة الفيديوهات المضافة حالياً (للحذف أو الإدارة) -->
+                <div class="bg-white border-3 border-inkDark rounded-3xl p-5 shadow-[0_4px_0_#1E293B]">
+                    <h4 class="font-black text-lg text-inkDark mb-3">الفيديوهات المضافة في مكتبتك (<span id="admin-video-count">0</span>)</h4>
+                    <div id="admin-video-list" class="space-y-2.5 max-h-60 overflow-y-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================== نافذة نظام الحسابات وإعداد ولي الأمر ================== -->
+    <div id="account-modal" role="dialog" aria-modal="true" aria-label="حساب العائلة" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2rem] max-w-lg w-full max-h-[92vh] overflow-y-auto cartoon-box p-6 sm:p-8 relative">
+            <button onclick="closeAccountModal()" class="absolute top-4 end-4 w-10 h-10 rounded-xl bg-slate-100 hover:bg-coralRed hover:text-white border-2 border-inkDark flex items-center justify-center font-black transition">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+
+            <p id="auth-status" role="status" aria-live="polite" class="text-sm font-bold text-slate-700 my-4"></p>
+            <!-- تسجيل الدخول وإنشاء الحساب -->
+            <div id="auth-step-login" class="text-center">
+                <div class="w-16 h-16 bg-candyBlue text-white rounded-2xl border-3 border-inkDark shadow-[0_4px_0_#1E293B] flex items-center justify-center mx-auto mb-4 text-3xl">
+                    👤
+                </div>
+                <h3 class="text-2xl font-black text-inkDark mb-1">حساب العائلة في Goodykido</h3>
+                <p class="text-slate-600 font-bold text-sm mb-6">سجّل الدخول لإنشاء ملف مخصص لطفلك وحفظ تفضيلاته وسجل مشاهداته</p>
+
+                <div class="space-y-3">
+                    <!-- زر Google -->
+                    <button id="google-auth" type="button" onclick="startSocialOnboarding('Google')" disabled class="cartoon-btn w-full bg-white hover:bg-slate-50 text-inkDark py-3.5 px-5 rounded-2xl font-black text-base flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.31 24 12 24Z"/>
+                            <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14Z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96Z"/>
+                        </svg>
+                        <span>المتابعة باستخدام Google</span>
+                    </button>
+
+
+                </div>
+                <div class="flex items-center gap-3 my-5 text-slate-500 font-bold text-sm"><hr class="flex-1">أو بالبريد الإلكتروني<hr class="flex-1"></div>
+                <div class="flex gap-2 mb-4" role="group" aria-label="طريقة الدخول">
+                    <button type="button" onclick="setAuthMode('login')" id="auth-login-tab" aria-pressed="true" class="flex-1 rounded-xl border-2 border-inkDark p-2 font-black bg-sky-100">تسجيل الدخول</button>
+                    <button type="button" onclick="setAuthMode('signup')" id="auth-signup-tab" aria-pressed="false" class="flex-1 rounded-xl border-2 border-inkDark p-2 font-black">إنشاء حساب</button>
+                </div>
+                <h4 id="email-auth-title" class="font-black mb-3">تسجيل الدخول بالبريد الإلكتروني</h4>
+                <form id="email-auth-form" class="space-y-3 text-start">
+                    <div id="auth-email-field"><label for="auth-email" class="block font-bold text-sm mb-1">بريد ولي الأمر</label>
+                    <input id="auth-email" type="email" dir="ltr" autocomplete="email" required class="w-full border-3 border-inkDark rounded-2xl px-4 py-3 focus:outline-candyBlue"></div>
+                    <div id="auth-password-field"><label for="auth-password" class="block font-bold text-sm mb-1">كلمة المرور</label>
+                    <input id="auth-password" type="password" dir="ltr" autocomplete="current-password" required class="w-full border-3 border-inkDark rounded-2xl px-4 py-3 focus:outline-candyBlue"></div>
+                    <p id="auth-signup-help" class="hidden text-xs font-bold text-slate-600">استخدم 10 أحرف على الأقل. نرسل رابط تأكيد إلى بريدك قبل تسجيل الدخول.</p>
+                    <button id="email-auth-submit" type="submit" class="cartoon-btn w-full bg-grassGreen rounded-2xl py-3 font-black">تسجيل الدخول</button>
+                </form>
+                <button type="button" id="auth-forgot" onclick="setAuthMode('forgot')" class="mt-4 underline font-bold text-sm text-blue-700">نسيت كلمة المرور؟</button>
+                <p class="mt-4 text-xs font-bold text-slate-500">لأولياء الأمور فقط. لا تشارك بيانات الدخول مع طفلك.</p>
+            </div>
+
+            <!-- الخطوة 2: نموذج إعداد ولي الأمر الإلزامي عند إنشاء الحساب -->
+            <div id="auth-step-onboarding" class="hidden">
+                <div class="flex items-center gap-2 mb-4">
+                    <span id="provider-badge" class="bg-sky-100 text-candyBlue px-3 py-1 rounded-full text-xs font-black border-2 border-inkDark">تم الربط مع Google</span>
+                </div>
+                <h3 class="text-2xl font-black text-inkDark mb-1">إعداد ملف الطفل (بواسطة ولي الأمر)</h3>
+                <p class="text-slate-600 font-bold text-xs mb-5">يرجى إكمال هذه البيانات لتخصيص تجربة المشاهدة ومحرك الاقتراحات:</p>
+
+                <div class="space-y-4">
+                    <!-- 1. اسم الحساب / الطفل -->
+                    <div>
+                        <label class="block text-sm font-black text-inkDark mb-1">1. اسم الحساب (اسم الطفل) *</label>
+                        <input type="text" id="profile-child-name" placeholder="مثال: سارة أو أحمد" class="w-full px-4 py-3 rounded-2xl border-3 border-inkDark font-bold text-base focus:bg-amber-50 focus:outline-none">
+                    </div>
+                    <!-- 2. مواليد الطفل (من 2025 حتى 2016) -->
+                    <div>
+                        <label class="block text-sm font-black text-inkDark mb-1">2. سنة ميلاد الطفل (لتحديد العمر) *</label>
+                        <select id="profile-birth-year" class="w-full px-4 py-3 rounded-2xl border-3 border-inkDark font-black text-base bg-white">
+                            <option value="">اختر سنة الميلاد...</option>
+                        </select>
+                        <p id="profile-age-hint" class="text-xs font-bold text-grapePurple mt-2"></p>
+                    </div>
+
+                    <!-- 3. نظام المحتوى: مخصص أم وضع الاقتراح الذكي -->
+                    <div>
+                        <label class="block text-sm font-black text-inkDark mb-2">3. نظام عرض المحتوى *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="cursor-pointer border-3 border-inkDark rounded-2xl p-3 bg-sky-50 flex items-start gap-2.5">
+                                <input type="radio" name="contentMode" value="smart" checked class="mt-1 w-4 h-4 accent-grapePurple">
+                                <div>
+                                    <span class="block font-black text-sm text-inkDark">✨ وضع الاقتراح الذكي</span>
+                                    <span class="block text-xs text-slate-600 font-bold">يقترح فيديوهات بناءً على مشاهدات الطفل واهتماماته</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer border-3 border-inkDark rounded-2xl p-3 bg-amber-50 flex items-start gap-2.5">
+                                <input type="radio" name="contentMode" value="custom" class="mt-1 w-4 h-4 accent-coralRed">
+                                <div>
+                                    <span class="block font-black text-sm text-inkDark">🔒 المحتوى المخصص فقط</span>
+                                    <span class="block text-xs text-slate-600 font-bold">يعرض فقط الأقسام التي يحددها ولي الأمر أدناه</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- الأقسام المفضلة / المسموحة -->
+                    <div>
+                        <label class="block text-xs font-black text-slate-600 mb-1.5">الأقسام المسموحة لطفلك:</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border-2 border-inkDark bg-white font-black text-xs cursor-pointer"><input type="checkbox" id="prof-cat-songs" checked class="w-4 h-4 accent-coralRed"><span>🎵 أناشيد وأغاني</span></label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border-2 border-inkDark bg-white font-black text-xs cursor-pointer"><input type="checkbox" id="prof-cat-cartoons" checked class="w-4 h-4 accent-grapePurple"><span>📺 كرتون ومغامرات</span></label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border-2 border-inkDark bg-white font-black text-xs cursor-pointer"><input type="checkbox" id="prof-cat-learning" checked class="w-4 h-4 accent-grassDark"><span>🚀 تعليم وعلوم</span></label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border-2 border-inkDark bg-white font-black text-xs cursor-pointer"><input type="checkbox" id="prof-cat-stories" checked class="w-4 h-4 accent-orangePop"><span>📖 قصص وحكايات</span></label>
+                        </div>
+                    </div>
+
+                    <button onclick="completeAccountSetup()" class="cartoon-btn w-full bg-grassGreen hover:bg-green-400 text-inkDark py-3.5 rounded-2xl font-black text-lg mt-2">
+                        حفظ الحساب وبدء المشاهدة 🚀
+                    </button>
+                    <button type="button" onclick="logoutAccount()" class="w-full underline text-sm font-bold py-2">تسجيل الخروج</button>
+                </div>
+            </div>
+
+            <!-- الخطوة 3: عرض الملف الشخصي النشط وإمكانية التعديل أو تسجيل الخروج -->
+            <div id="auth-step-profile" class="hidden text-center">
+                <div class="w-20 h-20 bg-sunYellow text-inkDark rounded-full border-4 border-inkDark shadow-[0_4px_0_#1E293B] flex items-center justify-center mx-auto mb-3 text-4xl">
+                    🌟
+                </div>
+                <h3 data-user-content id="active-prof-name" class="text-2xl font-black text-inkDark"></h3>
+                <p id="active-prof-meta" class="text-sm font-bold text-slate-600 mb-4">مواليد 2020 • وضع الاقتراح الذكي</p>
+
+                <div class="bg-sky-50 border-3 border-inkDark rounded-2xl p-4 mb-5 text-right">
+                    <h4 class="font-black text-sm text-inkDark mb-2">📊 إحصائيات محرك الاقتراحات لهذا الحساب:</h4>
+                    <p id="prof-watch-stats" class="text-xs font-bold text-slate-700">عدد الفيديوهات المشاهدة: 0 • القسم المفضل: لم يُحدد بعد</p>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="editCurrentAccount()" class="cartoon-btn flex-1 bg-sunYellow text-inkDark py-3 rounded-2xl font-black text-sm">تعديل الإعدادات</button>
+                    <button onclick="logoutAccount()" class="cartoon-btn flex-1 bg-coralRed text-white py-3 rounded-2xl font-black text-sm">تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================= الترجمة واللغات =================
+        const I18N = {
+            ar: { dir: 'rtl', badge: 'AR', brandSubtitle: 'جوديكيدو 🎈', boys: 'أولاد', girls: 'بنات', catAll: 'كل البرامج', catSongs: 'أناشيد وأغاني', catCartoons: 'كرتون ومغامرات', catLearning: 'تعليم وعلوم', catStories: 'قصص وحكايات' },
+            en: { dir: 'ltr', badge: 'EN', brandSubtitle: 'Goodykido 🎈', boys: 'Boys', girls: 'Girls', catAll: 'All Shows', catSongs: 'Songs', catCartoons: 'Cartoons', catLearning: 'Learning', catStories: 'Stories' },
+            fr: { dir: 'ltr', badge: 'FR', brandSubtitle: 'Goodykido 🎈', boys: 'Garçons', girls: 'Filles', catAll: 'Tout', catSongs: 'Chansons', catCartoons: 'Dessins', catLearning: 'Éducation', catStories: 'Histoires' },
+            tr: { dir: 'ltr', badge: 'TR', brandSubtitle: 'Goodykido 🎈', boys: 'Erkek', girls: 'Kız', catAll: 'Tümü', catSongs: 'Şarkılar', catCartoons: 'Çizgi Film', catLearning: 'Eğitim', catStories: 'Masallar' },
+            es: { dir: 'ltr', badge: 'ES', brandSubtitle: 'Goodykido 🎈', boys: 'Niños', girls: 'Niñas', catAll: 'Todo', catSongs: 'Canciones', catCartoons: 'Dibujos', catLearning: 'Educación', catStories: 'Cuentos' },
+            ckb: { dir: 'rtl', badge: 'CKB', brandSubtitle: 'گودیکیدۆ 🎈', boys: 'کوڕان', girls: 'کچان', catAll: 'هەموو بەرنامەکان', catSongs: 'سروود و گۆرانی', catCartoons: 'کارتۆن و سەرکێشی', catLearning: 'فێرکاری و زانست', catStories: 'چیرۆک و حکایەت' }
+        };
+
+        const LANG_TAGS = {
+            ar: { name: 'العربية' },
+            en: { name: 'English' },
+            fr: { name: 'Français' },
+            tr: { name: 'Türkçe' },
+            es: { name: 'Español' },
+            ckb: { name: 'کوردی سۆرانی' }
+        };
+
+        // ================= حالة التطبيق (تبدأ بـ 0 فيديوهات كما طلبت) =================
+        let videos = []; // Public records are loaded from the shared library API.
+        let userProfile = null;
+        let authenticatedUser = null;
+        localStorage.removeItem('goodykido_user_profile');
+        let watchHistory = JSON.parse(localStorage.getItem('goodykido_watch_history') || '{}');
+        let currentTheme = localStorage.getItem('goodykido_theme') || 'boys';
+
+        let uiLang = 'ar';
+        let showAllLanguages = true;
+        let currentCategory = 'all';
+        let currentPlayingVideo = null;
+        let filteredVideosList = [];
+        let mathSolution = null;
+        let pendingParentAction = null;
+        let selectedAuthProvider = 'Google';
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTheme(currentTheme, false);
+            applyTranslations();
+            updateHeaderAccountUI();
+            renderVideos();
+
+            document.addEventListener('click', (e) => {
+                const container = document.getElementById('lang-menu-container');
+                const menu = document.getElementById('lang-dropdown-menu');
+                if (container && !container.contains(e.target)) menu.classList.add('hidden');
+            });
+        });
+
+        // ================= 1. التبديل التفاعلي بين ثيم الأولاد وثيم البنات =================
+        function switchTheme(theme, notify = true) {
+            currentTheme = theme;
+            localStorage.setItem('goodykido_theme', theme);
+            const body = document.body;
+            const boysChars = document.getElementById('boys-characters-group');
+            const girlsChars = document.getElementById('girls-characters-group');
+            const btnBoys = document.getElementById('btn-theme-boys');
+            const btnGirls = document.getElementById('btn-theme-girls');
+            const hillBack = document.getElementById('hill-back');
+            const hillFront = document.getElementById('hill-front');
+
+            if (theme === 'girls') {
+                body.classList.remove('theme-boys');
+                body.classList.add('theme-girls');
+                boysChars.classList.add('hidden');
+                girlsChars.classList.remove('hidden');
+
+                btnGirls.className = 'px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition bg-pinkPop text-white border-2 border-inkDark shadow-[0_2px_0_#1E293B]';
+                btnBoys.className = 'px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition text-inkDark hover:bg-sky-100 border-2 border-transparent';
+
+                hillBack.setAttribute('fill', '#F9A8D4');
+                hillFront.setAttribute('fill', '#F472B6');
+                if (notify) showToast('تم تفعيل ثيم البنات السحري! 👑🦄');
+            } else {
+                body.classList.remove('theme-girls');
+                body.classList.add('theme-boys');
+                girlsChars.classList.add('hidden');
+                boysChars.classList.remove('hidden');
+
+                btnBoys.className = 'px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition bg-candyBlue text-white border-2 border-inkDark shadow-[0_2px_0_#1E293B]';
+                btnGirls.className = 'px-3 sm:px-4 py-1.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-1.5 transition text-inkDark hover:bg-pink-100 border-2 border-transparent';
+
+                hillBack.setAttribute('fill', '#86EFAC');
+                hillFront.setAttribute('fill', '#4ADE80');
+                if (notify) showToast('تم تفعيل ثيم الأولاد والمغامرات! ⚡🚀');
+            }
+        }
+
+        // تفاعل الشخصيات عند النقر عليها في الخلفية
+        function popCharacter(el, emoji) {
+            el.classList.remove('char-sparkle-pop');
+            void el.offsetWidth;
+            el.classList.add('char-sparkle-pop');
+            showToast(`${emoji} مرحباً بك في Goodykido!`);
+        }
+
+        // ================= 2. استخراج معرف اليوتيوب وإضافة روابطك الخاصة =================
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // ================= 3. نظام الحسابات وإعداد ولي الأمر =================
+        function openAccountModal(unlocked = false) {
+            if (!unlocked && !window.accountRecovery && document.getElementById('parent-dashboard-modal').classList.contains('hidden')) {
+                openParentGate(() => openAccountModal(true));
+                return;
+            }
+            document.getElementById('account-modal').classList.remove('hidden');
+            if (window.accountRecovery) {
+                document.getElementById('auth-step-login').classList.remove('hidden');
+                document.getElementById('auth-step-onboarding').classList.add('hidden');
+                document.getElementById('auth-step-profile').classList.add('hidden');
+            } else if (userProfile) {
+                showProfileView();
+            } else if (authenticatedUser) {
+                showAccountOnboarding();
+            } else {
+                document.getElementById('auth-step-login').classList.remove('hidden');
+                document.getElementById('auth-step-onboarding').classList.add('hidden');
+                document.getElementById('auth-step-profile').classList.add('hidden');
+            }
+        }
+
+        function closeAccountModal() {
+            document.getElementById('account-modal').classList.add('hidden');
+        }
+
+        async function completeAccountSetup() {
+            if (!authenticatedUser || !window.accountAuth) return;
+            const name = document.getElementById('profile-child-name').value.trim();
+            const birthYear = document.getElementById('profile-birth-year').value;
+            const mode = document.querySelector('input[name="contentMode"]:checked').value;
+
+            if (!name) {
+                showToast('⚠️ يرجى إدخال اسم الحساب (اسم الطفل)');
+                return;
+            }
+            if (!birthYear) {
+                showToast('⚠️ يرجى تحديد مواليد الطفل');
+                return;
+            }
+
+            const nextProfile = {
+                provider: selectedAuthProvider,
+                name: name,
+                birthYear: birthYear,
+                mode: mode,
+                allowedCats: {
+                    songs: document.getElementById('prof-cat-songs').checked,
+                    cartoons: document.getElementById('prof-cat-cartoons').checked,
+                    learning: document.getElementById('prof-cat-learning').checked,
+                    stories: document.getElementById('prof-cat-stories').checked
+                }
+            };
+
+            try {
+                await window.accountAuth.saveProfile(nextProfile);
+                userProfile = nextProfile;
+            } catch (error) {
+                showToast('تعذر حفظ الملف. يرجى المحاولة مرة أخرى.');
+                return;
+            }
+            updateHeaderAccountUI();
+            renderVideos();
+            closeAccountModal();
+            showToast(`أهلاً بك يا ${name}! تم حفظ إعدادات الحساب 🌟`);
+        }
+
+        function showProfileView() {
+            document.getElementById('auth-step-login').classList.add('hidden');
+            document.getElementById('auth-step-onboarding').classList.add('hidden');
+            document.getElementById('auth-step-profile').classList.remove('hidden');
+
+            document.getElementById('active-prof-name').textContent = userProfile.name;
+            const modeLabel = userProfile.mode === 'smart' ? 'وضع الاقتراح الذكي ✨' : 'المحتوى المخصص فقط 🔒';
+            document.getElementById('active-prof-meta').textContent = `مواليد ${userProfile.birthYear} (${userProfile.provider}) • ${modeLabel}`;
+
+            const stats = getWatchStatsSummary();
+            document.getElementById('prof-watch-stats').textContent = `إجمالي المشاهدات: ${stats.totalWatches} • القسم الأكثر مشاهدة: ${stats.topCategoryName}`;
+        }
+
+        function editCurrentAccount() {
+            document.getElementById('profile-child-name').value = userProfile.name;
+            document.getElementById('profile-birth-year').value = userProfile.birthYear;
+            document.querySelector(`input[name="contentMode"][value="${userProfile.mode === 'custom' ? 'custom' : 'smart'}"]`).checked = true;
+            ['songs', 'cartoons', 'learning', 'stories'].forEach(cat => {
+                document.getElementById('prof-cat-' + cat).checked = !!userProfile.allowedCats?.[cat];
+            });
+            showAccountOnboarding();
+        }
+
+        async function logoutAccount() {
+            try {
+                await window.accountAuth.logout();
+                closeAccountModal();
+                showToast('تم تسجيل الخروج من الحساب');
+            } catch (error) {
+                showToast('تعذر تسجيل الخروج. يرجى المحاولة مرة أخرى.');
+            }
+        }
+
+        function showAccountOnboarding() {
+            if (!authenticatedUser) return;
+            document.getElementById('provider-badge').textContent = authenticatedUser.email;
+            document.getElementById('auth-step-login').classList.add('hidden');
+            document.getElementById('auth-step-profile').classList.add('hidden');
+            document.getElementById('auth-step-onboarding').classList.remove('hidden');
+        }
+
+        window.applyAccountSession = function(user) {
+            authenticatedUser = user;
+            userProfile = user?.userMetadata?.child_profile || null;
+            selectedAuthProvider = user?.provider === 'google' ? 'Google' : 'Email';
+            updateHeaderAccountUI();
+            renderVideos();
+        };
+
+        function updateHeaderAccountUI() {
+            const nameEl = document.getElementById('header-account-name');
+            if (userProfile) {
+                nameEl.textContent = `${userProfile.name} (${userProfile.birthYear})`;
+            } else {
+                nameEl.textContent = 'تسجيل الدخول';
+            }
+        }
+
+        // ================= 4. محرك الاقتراحات الذكي (Recommendation Engine) =================
+        function recordWatchEvent(video) {
+            if (!video) return;
+            const key = userProfile ? userProfile.name : 'guest';
+            if (!watchHistory[key]) {
+                watchHistory[key] = { total: 0, categories: {}, langs: {}, videoCounts: {} };
+            }
+            const h = watchHistory[key];
+            h.total += 1;
+            h.categories[video.category] = (h.categories[video.category] || 0) + 1;
+            h.langs[video.lang] = (h.langs[video.lang] || 0) + 1;
+            h.videoCounts[video.id] = (h.videoCounts[video.id] || 0) + 1;
+
+            localStorage.setItem('goodykido_watch_history', JSON.stringify(watchHistory));
+        }
+
+        function getWatchStatsSummary() {
+            const key = userProfile ? userProfile.name : 'guest';
+            const h = watchHistory[key];
+            if (!h || h.total === 0) return { totalWatches: 0, topCategory: null, topCategoryName: 'لم يُحدد بعد' };
+
+            let topCat = null;
+            let maxCount = 0;
+            for (const [cat, count] of Object.entries(h.categories)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    topCat = cat;
+                }
+            }
+            const catNames = { songs: 'أناشيد وأغاني', cartoons: 'كرتون ومغامرات', learning: 'تعليم وعلوم', stories: 'قصص وحكايات' };
+            return { totalWatches: h.total, topCategory: topCat, topCategoryName: catNames[topCat] || topCat };
+        }
+
+        function getSmartRecommendations(availableVideos) {
+            const key = userProfile ? userProfile.name : 'guest';
+            const h = watchHistory[key] || { categories: {}, langs: {}, videoCounts: {} };
+
+            // ترتيب الفيديوهات بناءً على تفضيل الفئة واللغة التي يشاهدها الحساب بكثرة
+            return [...availableVideos].sort((a, b) => {
+                const scoreA = (h.categories[a.category] || 0) * 3 + (h.langs[a.lang] || 0) * 2 + (h.videoCounts[a.id] || 0);
+                const scoreB = (h.categories[b.category] || 0) * 3 + (h.langs[b.lang] || 0) * 2 + (h.videoCounts[b.id] || 0);
+                return scoreB - scoreA;
+            }).slice(0, 3);
+        }
+
+        // ================= 5. عرض الفيديوهات والمشغل الآمن =================
+        function renderVideos() {
+            const grid = document.getElementById('videos-grid');
+            const emptyState = document.getElementById('empty-state');
+            const headerBar = document.getElementById('grid-header-bar');
+            const countBadge = document.getElementById('video-count-badge');
+            const recSection = document.getElementById('recommended-section');
+            const recGrid = document.getElementById('recommended-grid');
+
+            // تصفية الفيديوهات حسب إعدادات ولي الأمر في الحساب (إن وجد) واللغة والقسم
+            filteredVideosList = videos.filter(v => {
+                if (userProfile && userProfile.allowedCats && !userProfile.allowedCats[v.category]) {
+                    return false;
+                }
+                const matchLang = showAllLanguages || v.lang === uiLang;
+                const matchCat = (currentCategory === 'all' || v.category === currentCategory) && (!window.selectedChannel || v.channelId === window.selectedChannel);
+                return matchLang && matchCat;
+            });
+
+            if (videos.length === 0) {
+                grid.innerHTML = '';
+                headerBar.classList.add('hidden');
+                recSection.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            headerBar.classList.remove('hidden');
+            countBadge.textContent = `${filteredVideosList.length} فيديو`;
+
+            // إظهار محرك الاقتراحات الذكي إذا كان مفعلاً في الحساب (أو للزائر عند وجود مشاهدات)
+            const isSmartMode = !userProfile || userProfile.mode === 'smart';
+            if (isSmartMode && filteredVideosList.length > 0) {
+                const recs = getSmartRecommendations(filteredVideosList);
+                recSection.classList.remove('hidden');
+                recGrid.innerHTML = recs.map(v => buildVideoCardHTML(v, true)).join('');
+            } else {
+                recSection.classList.add('hidden');
+            }
+
+            if (filteredVideosList.length === 0) {
+                grid.innerHTML = '<div class="col-span-full bg-white/90 p-8 rounded-3xl cartoon-box text-center font-black text-lg">لا توجد فيديوهات تطابق هذا القسم أو اللغة حالياً.</div>';
+                return;
+            }
+
+            grid.innerHTML = filteredVideosList.map(v => buildVideoCardHTML(v, false)).join('');
+        }
+
+        function buildVideoCardHTML(video, isRecommended) {
+            const langInfo = LANG_TAGS[video.lang] || LANG_TAGS.ar;
+            const thumbUrl = video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : null;
+            return `
+                <div onclick="openSafePlayerById('${video.id}')" class="video-card bg-white rounded-3xl overflow-hidden cursor-pointer flex flex-col group">
+                    <div class="relative aspect-video bg-sky-200 overflow-hidden border-b-4 border-inkDark">
+                        ${thumbUrl ? `<img src="${thumbUrl}" alt="${escapeHTML(video.title)}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">` : `<div class="w-full h-full flex items-center justify-center bg-sky-100 text-candyBlue"><i class="ph-fill ph-film-strip text-6xl"></i></div>`}
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition flex items-center justify-center">
+                            <div class="w-14 h-14 rounded-full bg-sunYellow text-inkDark flex items-center justify-center border-4 border-inkDark shadow-[0_4px_0_#1E293B] transform group-hover:scale-110 transition">
+                                <i class="ph-fill ph-play text-2xl ml-0.5"></i>
+                            </div>
+                        </div>
+                        <span class="absolute top-3 end-3 bg-white px-2.5 py-0.5 rounded-full text-xs font-black border-2 border-inkDark">
+                            ${langInfo.name}
+                        </span>
+                        ${isRecommended ? '<span class="absolute top-3 start-3 bg-grapePurple text-white px-2.5 py-0.5 rounded-full text-xs font-black border-2 border-inkDark">✨ مقترح</span>' : ''}
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between bg-white">
+                        <h3 data-user-content class="font-black text-lg text-inkDark leading-snug mb-2 line-clamp-2 group-hover:text-candyBlue transition">${escapeHTML(video.title)}</h3>
+                        <span data-user-content class="text-xs font-black text-slate-600 flex items-center gap-1"><i class="ph-fill ph-television text-candyBlue text-base"></i> ${escapeHTML(video.channel)}</span><button type="button" onclick="event.stopPropagation(); shareVideo('${video.id}')" class="mt-3 text-sm font-black text-blue-700 underline">مشاركة الرابط</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openSafePlayerById(videoId) {
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+            currentPlayingVideo = video;
+            recordWatchEvent(video);
+            renderVideos(); // تحديث الاقتراحات فوراً بناءً على المشاهدة
+
+            document.getElementById('player-video-title').textContent = video.title;
+            configurePlayer(video);
+            document.getElementById('safe-end-screen').classList.add('hidden');
+            document.getElementById('safe-player-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSafePlayer() {
+            stopExternalPlayer();
+            document.getElementById('youtube-iframe').src = '';
+            document.getElementById('safe-player-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function playNextSafeVideo() {
+            if (filteredVideosList.length === 0) return;
+            const currentIdx = filteredVideosList.findIndex(v => v.id === currentPlayingVideo?.id);
+            const nextIdx = (currentIdx + 1) % filteredVideosList.length;
+            openSafePlayerById(filteredVideosList[nextIdx].id);
+        }
+
+        function triggerEndScreen() {
+            stopExternalPlayer();
+            document.getElementById('youtube-iframe').src = '';
+            document.getElementById('safe-end-screen').classList.remove('hidden');
+        }
+
+        // ================= 6. اللغات والفئات وبوابة الأهل =================
+        function toggleLangMenu(e) {
+            e.stopPropagation();
+            document.getElementById('lang-dropdown-menu').classList.toggle('hidden');
+        }
+
+        function selectUILanguage(lang) {
+            if (!I18N[lang] || lang === uiLang) return;
+            document.getElementById('lang-dropdown-menu').classList.add('hidden');
+            openParentGate(() => {
+                uiLang = lang;
+                applyTranslations();
+                renderVideos();
+                renderAdminVideoList();
+                updateHeaderAccountUI();
+                if (userProfile) showProfileView();
+            });
+        }
+
+        function toggleShowAllLanguages() {
+            document.getElementById('lang-dropdown-menu').classList.add('hidden');
+            openParentGate(() => {
+                showAllLanguages = !showAllLanguages;
+                applyTranslations();
+                renderVideos();
+            });
+        }
+
+        function applyTranslations() {
+            const t = I18N[uiLang] || I18N.ar;
+            document.documentElement.lang = uiLang;
+            document.documentElement.dir = t.dir;
+            document.getElementById('current-lang-badge').textContent = showAllLanguages ? 'ALL' : t.badge;
+            document.getElementById('brand-subtitle').textContent = t.brandSubtitle;
+            document.getElementById('label-theme-boys').textContent = t.boys;
+            document.getElementById('label-theme-girls').textContent = t.girls;
+            document.getElementById('cat-label-all').textContent = t.catAll;
+            document.getElementById('cat-label-songs').textContent = t.catSongs;
+            document.getElementById('cat-label-cartoons').textContent = t.catCartoons;
+            document.getElementById('cat-label-learning').textContent = t.catLearning;
+            document.getElementById('cat-label-stories').textContent = t.catStories;
+            document.querySelectorAll('.lang-option').forEach(button => button.querySelector('.check-icon').classList.toggle('hidden', button.dataset.lang !== uiLang));
+            document.getElementById('show-all-langs-dot').classList.toggle('bg-grassGreen', showAllLanguages);
+            window.translatePage?.();
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const activeColor = btn.getAttribute('data-active-bg');
+                btn.classList.remove(activeColor, 'text-white');
+                btn.classList.add('bg-white', 'text-inkDark');
+            });
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if (activeBtn) {
+                const activeColor = activeBtn.getAttribute('data-active-bg');
+                activeBtn.classList.remove('bg-white', 'text-inkDark');
+                activeBtn.classList.add(activeColor, 'text-white');
+            }
+            renderVideos();
+        }
+
+        function resetFilters() {
+            showAllLanguages = true;
+            setCategory('all');
+            renderVideos();
+        }
+
+        function openParentGate(action = null) {
+            pendingParentAction = action || (() => {
+                renderAdminVideoList();
+                document.getElementById('parent-account-email').textContent = authenticatedUser?.email || '';
+                document.getElementById('parent-dashboard-modal').classList.remove('hidden');
+            });
+            const puzzles = [
+                { q: '7 × 8 = ?', ans: 56 },
+                { q: '6 × 9 = ?', ans: 54 },
+                { q: '48 ÷ 6 = ?', ans: 8 },
+                { q: '9 × 7 = ?', ans: 63 },
+                { q: '72 ÷ 8 = ?', ans: 9 }
+            ];
+            const p = puzzles[Math.floor(Math.random() * puzzles.length)];
+            mathSolution = p.ans;
+            document.getElementById('math-question').textContent = p.q;
+            document.getElementById('math-answer-input').value = '';
+            document.getElementById('math-error-msg').classList.add('hidden');
+            document.getElementById('parent-gate-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('math-answer-input').focus(), 100);
+        }
+
+        function closeParentGate() {
+            document.getElementById('parent-gate-modal').classList.add('hidden');
+            pendingParentAction = null;
+            mathSolution = null;
+        }
+
+        function verifyParentGate() {
+            const raw = document.getElementById('math-answer-input').value.trim();
+            const userVal = Number(raw);
+            if (raw && pendingParentAction && userVal === mathSolution) {
+                const action = pendingParentAction;
+                closeParentGate();
+                action();
+            } else {
+                document.getElementById('math-error-msg').classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('math-answer-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyParentGate();
+        });
+
+        function closeParentDashboard() {
+            document.getElementById('parent-dashboard-modal').classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            msg = window.translateText ? window.translateText(msg) : msg;
+            const box = document.getElementById('toast-box');
+            document.getElementById('toast-message').textContent = msg;
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('hidden'), 3000);
+        }
+    </script>
+    <script src="/library.js"></script>
+    <script src="/translations.js"></script>
+    <script>
+/* ===================== YouTube integration (channels + videos) =====================
+   - Videos: title + channel name are fetched automatically (YouTube oEmbed, no key needed).
+   - Channels: resolved and imported with YouTube Data API v3 (needs an API key).
+   - Library is stored in this browser's localStorage (key: goodykido_yt_library_v1).
+================================================================================== */
+(function () {
+  'use strict';
+  const LIB_KEY = 'goodykido_yt_library_v1';
+  const KEY_KEY = 'goodykido_yt_api_key';
+  const YT_API_KEY_DEFAULT = '';          // optional: paste your API key here instead of using the dashboard
+  const SYNC_EVERY = 15 * 60 * 1000;      // check channels for new videos every 15 minutes
+  const MAX_IMPORT = 1000;                // max videos imported per channel on first add
+  const FLAGS = { ar: '🇸🇦', en: '🇬🇧', fr: '🇫🇷', tr: '🇹🇷', es: '🇪🇸', ckb: '☀️' };
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const toast = m => { try { showToast(m); } catch (e) { console.log(m); } };
+  if (typeof window.escapeHTML !== 'function') window.escapeHTML = esc;
+
+  /* ---------- storage ---------- */
+  let lib = { channels: [], videos: [] };
+  try {
+    const s = JSON.parse(localStorage.getItem(LIB_KEY));
+    if (s && Array.isArray(s.channels) && Array.isArray(s.videos)) lib = s;
+  } catch (e) {}
+  function saveLib() {
+    try { localStorage.setItem(LIB_KEY, JSON.stringify(lib)); return true; }
+    catch (e) { toast('تعذر الحفظ: مساحة التخزين ممتلئة'); return false; }
+  }
+  const getKey = () => (localStorage.getItem(KEY_KEY) || YT_API_KEY_DEFAULT || '').trim();
+
+  /* ---------- helpers ---------- */
+  function langFromCode(code) {
+    const raw = String(code || '').toLowerCase();
+    if (raw === 'ckb' || raw.indexOf('ckb-') === 0) return 'ckb';   // Sorani only ('ku' may be Kurmanji, so no auto-suggest)
+    const c = raw.slice(0, 2);
+    return LANG_TAGS[c] ? c : '';
+  }
+  function setStatus(id, msg, kind) {
+    const el = $(id); if (!el) return;
+    if (!msg) { el.classList.add('hidden'); el.textContent = ''; return; }
+    el.className = 'text-xs font-black mb-3 ' + (kind === 'error' ? 'text-red-600' : kind === 'ok' ? 'text-green-700' : 'text-slate-700');
+    el.textContent = msg;
+  }
+  function setBtn(id, enabled) {
+    const b = $(id); if (!b) return;
+    b.disabled = !enabled;
+    b.classList.toggle('opacity-50', !enabled);
+  }
+  const sortKey = v => Date.parse(v.publishedAt || v.addedAt || '') || 0;
+
+  function parseYT(raw) {
+    raw = (raw || '').trim(); if (!raw) return null;
+    if (!/^https?:\/\//i.test(raw)) raw = 'https://' + raw;
+    let u; try { u = new URL(raw); } catch (e) { return null; }
+    const host = u.hostname.replace(/^(www|m|music)\./, '');
+    const ID = /^[\w-]{11}$/;
+    if (host === 'youtu.be') { const id = u.pathname.slice(1).split('/')[0]; return ID.test(id) ? { type: 'video', id } : null; }
+    if (host !== 'youtube.com') return null;
+    const p = u.pathname.split('/').filter(Boolean);
+    if (p[0] === 'watch') { const id = u.searchParams.get('v') || ''; return ID.test(id) ? { type: 'video', id } : null; }
+    if (['shorts', 'embed', 'live', 'v'].includes(p[0]) && ID.test(p[1] || '')) return { type: 'video', id: p[1] };
+    if (p[0] && p[0][0] === '@') return { type: 'channel', kind: 'handle', value: decodeURIComponent(p[0]) };
+    if (p[0] === 'channel' && p[1]) return { type: 'channel', kind: 'id', value: p[1] };
+    if (p[0] === 'user' && p[1]) return { type: 'channel', kind: 'user', value: p[1] };
+    if (p[0] === 'c' && p[1]) return { type: 'channel', kind: 'custom', value: decodeURIComponent(p[1]) };
+    return null;
+  }
+
+  async function api(path, params) {
+    const key = getKey();
+    if (!key) throw new Error('NO_KEY');
+    const u = new URL('https://www.googleapis.com/youtube/v3/' + path);
+    Object.entries(Object.assign({}, params, { key })).forEach(([k, v]) => u.searchParams.set(k, v));
+    const r = await fetch(u.toString());
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error((j.error && j.error.message) || ('HTTP ' + r.status));
+    return j;
+  }
+
+  /* ---------- language chips ---------- */
+  function renderChips(boxId, hiddenId, selected, onChange) {
+    const box = $(boxId); if (!box) return;
+    $(hiddenId).value = selected || '';
+    box.innerHTML = Object.keys(LANG_TAGS).map(c =>
+      `<button type="button" data-lang="${c}" class="cartoon-btn px-3 py-2 rounded-2xl font-black text-sm ${c === selected ? 'bg-sunYellow' : 'bg-white'}">${FLAGS[c] || '🌐'} ${esc(LANG_TAGS[c].name)}</button>`).join('');
+    box.querySelectorAll('button').forEach(b => b.onclick = () => {
+      renderChips(boxId, hiddenId, b.dataset.lang, onChange);
+      if (onChange) onChange();
+    });
+  }
+
+  /* ---------- sync `videos` (global in index.html) with our library ---------- */
+  function syncMine() {
+    if (typeof videos === 'undefined') return;
+    const have = new Set(videos.map(v => v.id));
+    lib.videos.forEach(v => { if (!have.has(v.id)) videos.push(v); });
+    videos.sort((a, b) => sortKey(b) - sortKey(a));
+  }
+  const origRender = window.renderVideos;
+  window.renderVideos = function () { syncMine(); return origRender.apply(this, arguments); };
+
+  function removeFromVideos(pred) {
+    for (let i = videos.length - 1; i >= 0; i--) if (pred(videos[i])) videos.splice(i, 1);
+  }
+
+  /* ================= VIDEO ================= */
+  let pendingVideo = null, vTok = 0, vTimer = null;
+
+  async function fetchVideoInfo(id) {
+    const info = { youtubeId: id, title: '', channel: '', channelId: '', suggestedLang: '', blocked: false, thumb: `https://img.youtube.com/vi/${id}/hqdefault.jpg` };
+    const r = await fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + id));
+    if (!r.ok) throw new Error(r.status === 404 ? 'NOT_FOUND' : 'NOT_ALLOWED');
+    const j = await r.json();
+    info.title = j.title || ''; info.channel = j.author_name || '';
+    const m = (j.author_url || '').match(/\/channel\/(UC[\w-]+)/);
+    info.channelId = m ? m[1] : (j.author_url || '');
+    if (getKey()) {            // optional enrichment: exact channel id + language hint + embeddable check
+      try {
+        const v = await api('videos', { part: 'snippet,status', id });
+        const it = v.items && v.items[0];
+        if (it) {
+          info.channelId = it.snippet.channelId || info.channelId;
+          info.suggestedLang = langFromCode(it.snippet.defaultAudioLanguage || it.snippet.defaultLanguage);
+          if (it.status && it.status.embeddable === false) info.blocked = true;
+        }
+      } catch (e) {}
+    }
+    return info;
+  }
+
+  function videoInputChanged() {
+    clearTimeout(vTimer);
+    vTimer = setTimeout(previewVideo, 500);
+  }
+  async function previewVideo() {
+    const raw = $('new-video-url').value.trim();
+    const tok = ++vTok;
+    pendingVideo = null; $('video-preview').classList.add('hidden'); setBtn('publish-video', false);
+    if (!raw) { setStatus('video-fetch-status', ''); return; }
+    const p = parseYT(raw);
+    if (!p) { setStatus('video-fetch-status', 'هذا ليس رابط YouTube صالحاً', 'error'); return; }
+    if (p.type === 'channel') { setStatus('video-fetch-status', 'هذا رابط قناة. استخدم خانة إضافة القناة أعلاه.', 'error'); return; }
+    setStatus('video-fetch-status', 'جارٍ جلب بيانات الفيديو…');
+    try {
+      const info = await fetchVideoInfo(p.id);
+      if (tok !== vTok) return;
+      if (info.blocked) { setStatus('video-fetch-status', 'صاحب الفيديو لا يسمح بتضمينه، لذلك لن يعمل داخل الموقع.', 'error'); return; }
+      pendingVideo = info;
+      $('video-preview-thumb').src = info.thumb;
+      $('new-video-title').value = info.title;
+      $('new-video-channel').value = info.channel;
+      $('video-preview').classList.remove('hidden');
+      renderChips('video-lang-chips', 'new-video-lang', info.suggestedLang, refreshVideoBtn);
+      $('video-lang-hint').textContent = info.suggestedLang ? 'اقتراح من YouTube — يمكنك تغييرها' : 'اختر لغة الفيديو للمتابعة';
+      setStatus('video-fetch-status', 'تم جلب العنوان واسم القناة تلقائياً ✓', 'ok');
+      refreshVideoBtn();
+    } catch (e) {
+      if (tok !== vTok) return;
+      setStatus('video-fetch-status', e.message === 'NOT_FOUND' ? 'لم يتم العثور على الفيديو' : 'تعذر جلب الفيديو (قد يكون خاصاً أو غير قابل للتضمين)', 'error');
+    }
+  }
+  function refreshVideoBtn() { setBtn('publish-video', !!(pendingVideo && $('new-video-lang').value)); }
+
+  window.addCustomVideo = function () {
+    const v = pendingVideo; if (!v) return;
+    const lang = $('new-video-lang').value;
+    if (!lang) { toast('اختر لغة الفيديو أولاً'); return; }
+    const id = 'yt_' + v.youtubeId;
+    if (lib.videos.some(x => x.id === id)) { toast('هذا الفيديو مضاف من قبل'); return; }
+    lib.videos.push({ id, youtubeId: v.youtubeId, title: v.title, channel: v.channel, channelId: v.channelId, lang, category: $('new-video-category').value, publishedAt: '', addedAt: new Date().toISOString(), source: 'video' });
+    if (!saveLib()) { lib.videos.pop(); return; }
+    $('new-video-url').value = ''; pendingVideo = null;
+    $('video-preview').classList.add('hidden'); setBtn('publish-video', false); setStatus('video-fetch-status', '');
+    toast('تمت إضافة الفيديو ✓');
+    refreshAll();
+  };
+
+  /* ================= CHANNEL ================= */
+  let pendingChannel = null, cTok = 0, cTimer = null;
+
+  async function resolveChannel(p) {
+    const part = 'snippet,contentDetails,statistics';
+    let j;
+    if (p.kind === 'id') j = await api('channels', { part, id: p.value });
+    else if (p.kind === 'handle') j = await api('channels', { part, forHandle: p.value });
+    else if (p.kind === 'user') j = await api('channels', { part, forUsername: p.value });
+    else {
+      const s = await api('search', { part: 'snippet', type: 'channel', q: p.value, maxResults: 1 });
+      const it = s.items && s.items[0];
+      const id = it && ((it.snippet && it.snippet.channelId) || (it.id && it.id.channelId));
+      if (!id) return null;
+      j = await api('channels', { part, id });
+    }
+    const c = j.items && j.items[0]; if (!c) return null;
+    const th = (c.snippet.thumbnails || {});
+    return {
+      id: c.id, title: c.snippet.title, handle: c.snippet.customUrl || '',
+      thumb: (th.medium || th.default || {}).url || '',
+      uploads: c.contentDetails && c.contentDetails.relatedPlaylists && c.contentDetails.relatedPlaylists.uploads,
+      videoCount: Number(c.statistics && c.statistics.videoCount) || 0,
+      suggestedLang: langFromCode(c.snippet.defaultLanguage)
+    };
+  }
+
+  async function keepPlayable(items) {      // public + embeddable only
+    const ok = [];
+    for (let i = 0; i < items.length; i += 50) {
+      const chunk = items.slice(i, i + 50);
+      const j = await api('videos', { part: 'status', id: chunk.map(x => x.youtubeId).join(',') });
+      const good = new Set((j.items || []).filter(it => it.status && it.status.embeddable !== false && it.status.privacyStatus === 'public').map(it => it.id));
+      chunk.forEach(x => { if (good.has(x.youtubeId)) ok.push(x); });
+    }
+    return ok;
+  }
+
+  async function pullUploads(ch, opts) {
+    const known = new Set(lib.videos.map(v => v.youtubeId));
+    const out = []; let token = '', pages = 0, stop = false;
+    while (!stop) {
+      const params = { part: 'snippet,contentDetails', playlistId: ch.uploads, maxResults: 50 };
+      if (token) params.pageToken = token;
+      const j = await api('playlistItems', params);
+      const raw = [];
+      for (const it of (j.items || [])) {
+        const id = it.contentDetails && it.contentDetails.videoId;
+        const t = (it.snippet && it.snippet.title) || '';
+        if (!id || t === 'Private video' || t === 'Deleted video') continue;
+        if (known.has(id)) { if (!opts.full) { stop = true; break; } continue; }
+        raw.push({ youtubeId: id, title: t, publishedAt: (it.contentDetails && it.contentDetails.videoPublishedAt) || (it.snippet && it.snippet.publishedAt) || '' });
+      }
+      (await keepPlayable(raw)).forEach(x => out.push({
+        id: 'yt_' + x.youtubeId, youtubeId: x.youtubeId, title: x.title, channel: ch.title, channelId: ch.id,
+        lang: ch.lang, category: ch.category, publishedAt: x.publishedAt, addedAt: new Date().toISOString(), source: 'channel'
+      }));
+      pages++;
+      if (opts.onProgress) opts.onProgress(out.length);
+      token = j.nextPageToken;
+      if (!token || out.length >= MAX_IMPORT || (!opts.full && pages >= 5)) break;
+    }
+    return out;
+  }
+
+  function channelInputChanged() {
+    clearTimeout(cTimer);
+    cTimer = setTimeout(previewChannel, 700);
+  }
+  async function previewChannel() {
+    const raw = $('new-channel-url').value.trim();
+    const tok = ++cTok;
+    pendingChannel = null;
+    $('channel-preview').classList.add('hidden'); $('channel-options').classList.add('hidden'); setBtn('publish-channel', false);
+    if (!raw) { setStatus('channel-fetch-status', ''); return; }
+    const p = parseYT(raw);
+    if (!p) { setStatus('channel-fetch-status', 'هذا ليس رابط قناة YouTube صالحاً (مثال: youtube.com/@name)', 'error'); return; }
+    if (p.type === 'video') { setStatus('channel-fetch-status', 'هذا رابط فيديو. استخدم خانة إضافة الفيديو أدناه.', 'error'); return; }
+    if (!getKey()) { setStatus('channel-fetch-status', 'اربط YouTube أولاً بلصق مفتاح API في المربع أعلاه.', 'error'); return; }
+    setStatus('channel-fetch-status', 'جارٍ البحث عن القناة…');
+    try {
+      const ch = await resolveChannel(p);
+      if (tok !== cTok) return;
+      if (!ch || !ch.uploads) { setStatus('channel-fetch-status', 'لم يتم العثور على القناة', 'error'); return; }
+      if (lib.channels.some(c => c.id === ch.id)) { setStatus('channel-fetch-status', 'هذه القناة مضافة من قبل', 'error'); return; }
+      pendingChannel = ch;
+      $('channel-preview-thumb').src = ch.thumb;
+      $('channel-preview-title').textContent = ch.title;
+      $('channel-preview-meta').textContent = (ch.handle ? ch.handle + ' • ' : '') + ch.videoCount + ' videos';
+      $('channel-preview').classList.remove('hidden'); $('channel-options').classList.remove('hidden');
+      renderChips('channel-lang-chips', 'new-channel-lang', ch.suggestedLang, refreshChannelBtn);
+      $('channel-lang-hint').textContent = ch.suggestedLang ? 'اقتراح من YouTube — يمكنك تغييرها' : 'اختر لغة القناة للمتابعة';
+      setStatus('channel-fetch-status', 'تم العثور على القناة ✓', 'ok');
+      refreshChannelBtn();
+    } catch (e) {
+      if (tok !== cTok) return;
+      setStatus('channel-fetch-status', 'خطأ من YouTube: ' + e.message, 'error');
+    }
+  }
+  function refreshChannelBtn() { setBtn('publish-channel', !!(pendingChannel && $('new-channel-lang').value)); }
+
+  window.addChannel = async function () {
+    const ch = pendingChannel; if (!ch) return;
+    const lang = $('new-channel-lang').value;
+    if (!lang) { toast('اختر لغة القناة أولاً'); return; }
+    const rec = { id: ch.id, title: ch.title, handle: ch.handle, thumb: ch.thumb, uploads: ch.uploads, lang, category: $('new-channel-category').value, addedAt: Date.now(), lastSync: 0 };
+    setBtn('publish-channel', false);
+    try {
+      const vids = await pullUploads(rec, { full: true, onProgress: n => setStatus('channel-fetch-status', `جارٍ استيراد الفيديوهات… ${n}`) });
+      lib.channels.push(rec);
+      vids.forEach(v => { if (!lib.videos.some(x => x.id === v.id)) lib.videos.push(v); });
+      rec.lastSync = Date.now();
+      if (!saveLib()) { lib.channels.pop(); return; }
+      $('new-channel-url').value = ''; pendingChannel = null;
+      $('channel-preview').classList.add('hidden'); $('channel-options').classList.add('hidden'); setStatus('channel-fetch-status', '');
+      toast(`تمت إضافة القناة و ${vids.length} فيديو ✓`);
+      refreshAll();
+    } catch (e) {
+      setStatus('channel-fetch-status', 'فشل الاستيراد: ' + e.message, 'error');
+      refreshChannelBtn();
+    }
+  };
+
+  async function syncChannel(ch) {
+    const vids = await pullUploads(ch, { full: false });
+    vids.forEach(v => { if (!lib.videos.some(x => x.id === v.id)) lib.videos.push(v); });
+    ch.lastSync = Date.now(); saveLib();
+    return vids.length;
+  }
+  async function syncAll(force) {
+    if (!getKey()) return;
+    let added = 0;
+    for (const ch of lib.channels) {
+      if (!force && Date.now() - (ch.lastSync || 0) < SYNC_EVERY) continue;
+      try { added += await syncChannel(ch); } catch (e) { console.warn('sync failed', ch.title, e.message); }
+    }
+    if (added) { toast(`تمت إضافة ${added} فيديو جديد من القنوات`); refreshAll(); }
+  }
+  window.refreshChannelNow = async function (id) {
+    const ch = lib.channels.find(c => c.id === id); if (!ch) return;
+    if (!getKey()) { toast('اربط YouTube أولاً'); return; }
+    try { const n = await syncChannel(ch); toast(n ? `تمت إضافة ${n} فيديو جديد` : 'لا توجد فيديوهات جديدة'); refreshAll(); }
+    catch (e) { toast('خطأ من YouTube: ' + e.message); }
+  };
+
+  window.setChannelLang = function (id, lang) {
+    const ch = lib.channels.find(c => c.id === id); if (!ch) return;
+    ch.lang = lang;
+    const upd = v => { if (v.channelId === id && v.source === 'channel') v.lang = lang; };
+    lib.videos.forEach(upd); videos.forEach(upd);
+    saveLib(); refreshAll(); toast('تم تغيير لغة القناة');
+  };
+  window.removeChannel = function (id) {
+    const ch = lib.channels.find(c => c.id === id); if (!ch) return;
+    if (!confirm(`حذف القناة "${ch.title}" وكل فيديوهاتها من الموقع؟`)) return;
+    const pred = v => v.channelId === id && v.source === 'channel';
+    lib.channels = lib.channels.filter(c => c.id !== id);
+    lib.videos = lib.videos.filter(v => !pred(v)); removeFromVideos(pred);
+    if (window.selectedChannel === id) window.selectedChannel = '';
+    saveLib(); refreshAll(); toast('تم حذف القناة');
+  };
+  window.removeLibraryVideo = function (id) {
+    lib.videos = lib.videos.filter(v => v.id !== id); removeFromVideos(v => v.id === id);
+    saveLib(); refreshAll(); toast('تم حذف الفيديو');
+  };
+
+  /* ================= API KEY ================= */
+  window.saveYtKey = async function () {
+    const k = $('yt-api-key').value.trim(); if (!k) return;
+    try {
+      const u = new URL('https://www.googleapis.com/youtube/v3/videos');
+      u.searchParams.set('part', 'id'); u.searchParams.set('id', 'dQw4w9WgXcQ'); u.searchParams.set('key', k);
+      const r = await fetch(u.toString()); const j = await r.json().catch(() => ({}));
+      if (!r.ok) { toast('المفتاح غير صالح: ' + ((j.error && j.error.message) || r.status)); return; }
+    } catch (e) { toast('تعذر التحقق من المفتاح، تحقق من الاتصال'); return; }
+    localStorage.setItem(KEY_KEY, k); $('yt-api-key').value = '';
+    updateKeyUI(); toast('تم ربط YouTube ✓');
+    if ($('new-channel-url').value.trim()) previewChannel();
+    syncAll(false);
+  };
+  window.clearYtKey = function () { localStorage.removeItem(KEY_KEY); updateKeyUI(); };
+  function updateKeyUI() {
+    const has = !!getKey();
+    $('yt-key-ok').classList.toggle('hidden', !has);
+    $('yt-key-form').classList.toggle('hidden', has);
+  }
+
+  /* ================= RENDERING ================= */
+  function renderAdminChannels() {
+    const box = $('admin-channels'); if (!box) return;
+    box.innerHTML = lib.channels.map(ch => {
+      const n = lib.videos.filter(v => v.channelId === ch.id && v.source === 'channel').length;
+      const opts = Object.keys(LANG_TAGS).map(c => `<option value="${c}" ${c === ch.lang ? 'selected' : ''}>${FLAGS[c] || ''} ${esc(LANG_TAGS[c].name)}</option>`).join('');
+      return `<div class="bg-white border-3 border-inkDark rounded-2xl p-3">
+        <div class="flex items-center gap-3">
+          <img src="${esc(ch.thumb)}" alt="" class="w-10 h-10 rounded-full border-2 border-inkDark object-cover bg-sky-100">
+          <div class="min-w-0 flex-1"><p class="font-black text-sm truncate">${esc(ch.title)}</p><p class="text-[11px] font-bold text-slate-600">${n} فيديو</p></div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 mt-2">
+          <select onchange="setChannelLang('${esc(ch.id)}', this.value)" class="px-2 py-1.5 rounded-xl border-2 border-inkDark font-black text-xs bg-white">${opts}</select>
+          <button type="button" onclick="refreshChannelNow('${esc(ch.id)}')" class="cartoon-btn bg-sky-200 px-3 py-1.5 rounded-xl font-black text-xs">تحديث الآن</button>
+          <button type="button" onclick="removeChannel('${esc(ch.id)}')" class="cartoon-btn bg-coralRed text-white px-3 py-1.5 rounded-xl font-black text-xs">حذف</button>
+        </div></div>`;
+    }).join('');
+  }
+
+  window.renderAdminVideoList = function () {
+    updateKeyUI(); renderAdminChannels();
+    const list = $('admin-video-list'), count = $('admin-video-count');
+    if (count) count.textContent = lib.videos.length;
+    if (!list) return;
+    const shown = lib.videos.slice().sort((a, b) => sortKey(b) - sortKey(a)).slice(0, 150);
+    list.innerHTML = shown.map(v => `<div class="flex items-center gap-2.5 bg-sky-50 border-2 border-inkDark rounded-2xl p-2">
+        <img src="https://img.youtube.com/vi/${esc(v.youtubeId)}/default.jpg" alt="" class="w-14 h-10 rounded-lg object-cover border border-inkDark">
+        <div class="min-w-0 flex-1"><p class="font-black text-xs truncate">${esc(v.title)}</p><p class="text-[11px] font-bold text-slate-600 truncate">${esc(v.channel)} • ${esc((LANG_TAGS[v.lang] || {}).name || '')}</p></div>
+        <button type="button" onclick="removeLibraryVideo('${esc(v.id)}')" class="cartoon-btn bg-coralRed text-white w-8 h-8 rounded-lg flex items-center justify-center shrink-0"><i class="ph-bold ph-trash"></i></button>
+      </div>`).join('') + (lib.videos.length > 150 ? `<p class="text-[11px] font-bold text-slate-600 text-center">يتم عرض أحدث 150 فيديو فقط</p>` : '');
+  };
+
+  function renderPublicChannels() {
+    const box = $('public-channels'); if (!box) return;
+    const st = $('library-status'), retry = $('library-retry');
+    if (retry) retry.classList.add('hidden');
+    if (st) st.textContent = lib.channels.length ? `${lib.channels.length} قناة في المكتبة` : 'لا توجد قنوات بعد. أضف قناة من لوحة الأهل.';
+    if (!lib.channels.length) { box.innerHTML = ''; return; }
+    const sel = window.selectedChannel || '';
+    const chip = (id, label, thumb) => `<button type="button" data-ch="${esc(id)}" class="cartoon-btn flex items-center gap-2 px-3 py-2 rounded-2xl font-black text-sm ${sel === id ? 'bg-sunYellow' : 'bg-white'}">${thumb ? `<img src="${esc(thumb)}" alt="" class="w-6 h-6 rounded-full border border-inkDark object-cover">` : '🌈'}<span>${esc(label)}</span></button>`;
+    box.innerHTML = chip('', 'الكل', '') + lib.channels.map(c => chip(c.id, c.title, c.thumb)).join('');
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('#public-channels [data-ch]'); if (!b) return;
+    const id = b.dataset.ch;
+    window.selectedChannel = (window.selectedChannel === id) ? '' : id;
+    renderPublicChannels(); renderVideos();
+  });
+
+  function refreshAll() { renderPublicChannels(); renderAdminChannels(); window.renderAdminVideoList(); renderVideos(); }
+
+  /* ================= INIT ================= */
+  $('new-video-url').addEventListener('input', videoInputChanged);
+  $('new-channel-url').addEventListener('input', channelInputChanged);
+  $('new-channel-url').addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(cTimer); previewChannel(); } });
+  $('new-video-url').addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(vTimer); previewVideo(); } });
+  updateKeyUI(); renderPublicChannels();
+  setTimeout(() => syncAll(false), 2000);
+  setInterval(() => syncAll(false), SYNC_EVERY);
+})();
+</script>
+    <script>
+/* ===================== محرك الاقتراحات الذكي v2 =====================
+   يعتمد على: (1) عمر الطفل من سنة الميلاد  (2) ما يشاهده فعلاً  (3) التنويع والحداثة.
+   - طفل عمره 6 سنوات  ← كرتون ومغامرات أولاً (وليس تعليم)
+   - طفل عمره 0–3 سنوات ← أناشيد وتعليم أولاً
+==================================================================== */
+(function () {
+  'use strict';
+  const REC_KEY = 'goodykido_rec_v2';
+  const N_RECS = 6;
+  // 1–3 سنوات: تعليم + أناشيد + كرتون | 4–5: كرتون أطفال | 6 وما فوق: كرتون الأطفال
+  const TODDLER_MIX = { learning: .95, songs: .95, cartoons: .88, stories: .3 };
+  const KIDS_CARTOON = { cartoons: 1, stories: .25, songs: .2, learning: .15 };
+  const AGE_PRIOR = {};
+  for (let a = 0; a <= 3; a++) AGE_PRIOR[a] = TODDLER_MIX;
+  AGE_PRIOR[4] = AGE_PRIOR[5] = { cartoons: 1, stories: .25, songs: .3, learning: .25 };
+  for (let a = 6; a <= 12; a++) AGE_PRIOR[a] = KIDS_CARTOON;
+  const NEUTRAL = { songs: .6, cartoons: .6, learning: .6, stories: .6 };
+  const CAT_NAMES = { songs: '🎵 أناشيد وأغاني', cartoons: '📺 كرتون ومغامرات', learning: '🚀 تعليم وعلوم', stories: '📖 قصص وحكايات' };
+  const TODDLER = ['abc', '123', 'nursery', 'rhyme', 'baby', 'colors', 'colours', 'shapes', 'alphabet', 'lullaby', 'counting', 'numbers', 'أبجد', 'حروف', 'ألوان', 'أرقام', 'أشكال', 'تهويدة', 'renkler', 'şarkı', 'sayılar', 'canciones', 'colores', 'chansons', 'couleurs', 'ڕەنگ', 'ژمارە', 'ئەلفوبێ'];
+  const OLDER = ['science', 'experiment', 'history', 'space', 'planet', 'علوم', 'تجربة', 'فضاء', 'تاريخ', 'bilim', 'deney', 'uzay', 'ciencia', 'experimento', 'expérience', 'زانست', 'تاقیکردنەوە'];
+  const WHY = {
+    age:   { ar: '🧒 مناسب لعمر {n}', en: '🧒 Great for age {n}', fr: '🧒 Pour {n} ans', tr: '🧒 {n} yaş için', es: '🧒 Para {n} años', ckb: '🧒 گونجاو بۆ تەمەنی {n}' },
+    like:  { ar: '❤️ يعجب طفلك', en: '❤️ Your child likes this', fr: '❤️ Il/elle aime ça', tr: '❤️ Çocuğunuz seviyor', es: '❤️ Le gusta', ckb: '❤️ منداڵەکەت خۆشی دەوێت' },
+    fresh: { ar: '🆕 جديد', en: '🆕 New', fr: '🆕 Nouveau', tr: '🆕 Yeni', es: '🆕 Nuevo', ckb: '🆕 نوێ' },
+    pick:  { ar: '✨ مقترح', en: '✨ Suggested', fr: '✨ Suggéré', tr: '✨ Önerilen', es: '✨ Sugerido', ckb: '✨ پێشنیار' }
+  };
+
+  const ageOf = p => { const y = Number(p && p.birthYear); return y ? Math.max(0, Math.min(12, new Date().getFullYear() - y)) : null; };
+  const priorFor = age => (age == null ? NEUTRAL : AGE_PRIOR[age] || NEUTRAL);
+  const lang = () => (typeof uiLang !== 'undefined' && uiLang) || 'ar';
+  const why = new Map();
+
+  /* ---------- سجل المشاهدة لكل حساب ---------- */
+  let hist = {};
+  try { hist = JSON.parse(localStorage.getItem(REC_KEY)) || {}; } catch (e) {}
+  const acct = () => (typeof authenticatedUser !== 'undefined' && authenticatedUser && authenticatedUser.uid) || 'guest';
+  function H() { const k = acct(); return hist[k] || (hist[k] = { total: 0, cats: {}, channels: {}, langs: {}, counts: {}, recent: [] }); }
+  const maxOf = o => Math.max(0, ...Object.values(o)) || 1;
+
+  window.recordWatchEvent = function (v) {
+    if (!v) return;
+    const h = H(); h.total++;
+    const bump = (o, k) => { if (!k) return; for (const x in o) o[x] *= .97; o[k] = (o[k] || 0) + 1; };   // الأحدث أهم
+    bump(h.cats, v.category); bump(h.langs, v.lang); bump(h.channels, v.channelId);
+    h.counts[v.id] = (h.counts[v.id] || 0) + 1;
+    h.recent = [v.id].concat(h.recent.filter(x => x !== v.id)).slice(0, 40);
+    try { localStorage.setItem(REC_KEY, JSON.stringify(hist)); } catch (e) {}
+  };
+
+  window.getWatchStatsSummary = function () {
+    const h = H();
+    if (!h.total) return { totalWatches: 0, topCategory: null, topCategoryName: 'لم يُحدد بعد' };
+    const top = Object.entries(h.cats).sort((a, b) => b[1] - a[1])[0];
+    return { totalWatches: h.total, topCategory: top && top[0], topCategoryName: top ? (CAT_NAMES[top[0]] || top[0]) : 'لم يُحدد بعد' };
+  };
+
+  /* ---------- الاقتراحات ---------- */
+  const hash = s => { let x = 0; for (let i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) | 0; return (x >>> 0) / 4294967295; };
+  const hasAny = (t, list) => list.some(k => t.indexOf(k) !== -1);
+
+  window.getSmartRecommendations = function (avail) {
+    why.clear();
+    const h = H(), age = ageOf(typeof userProfile !== 'undefined' ? userProfile : null), prior = priorFor(age);
+    const conf = Math.min(1, h.total / 12) * .55;                     // وزن السجل يصل إلى 55% كحدٍّ أقصى
+    const mC = maxOf(h.cats), mH = maxOf(h.channels), mL = maxOf(h.langs);
+    const day = Math.floor(Date.now() / 864e5), now = Date.now();
+    const ui = lang();
+
+    const cand = avail.map(v => {
+      const catRel = (h.cats[v.category] || 0) / mC;
+      const pref = .6 * catRel + .28 * ((h.channels[v.channelId] || 0) / mH) + .12 * ((h.langs[v.lang] || 0) / mL);
+      let s = (1 - conf) * (prior[v.category] != null ? prior[v.category] : .5) + conf * pref;
+      const t = String(v.title || '').toLowerCase();
+      if (age != null) {
+        if (age <= 3 && hasAny(t, TODDLER)) s += .08;
+        if (age >= 6 && hasAny(t, TODDLER)) s -= .06;
+      }
+      const ts = Date.parse(v.publishedAt || v.addedAt || '');
+      const fresh = ts && now - ts < 60 * 864e5;
+      if (fresh) s += .05;
+      const seen = h.counts[v.id] || 0;
+      s -= Math.min(seen, 3) * .12;                                    // لا نكرر المشاهَد كثيراً
+      if (h.recent[0] === v.id) s -= .2;
+      if (v.lang === ui) s += .06;
+      s += hash(v.id + day) * .05;                                     // تنويع يومي بسيط
+      return { v, s, catRel, pref, fresh };
+    });
+
+    const picks = [], chCount = {}, catCount = {};
+    while (picks.length < N_RECS && cand.length) {
+      let bi = 0, bs = -1e9;
+      cand.forEach((c, i) => {
+        const adj = c.s - .18 * (chCount[c.v.channelId || c.v.channel] || 0) - .08 * (catCount[c.v.category] || 0);
+        if (adj > bs) { bs = adj; bi = i; }
+      });
+      const c = cand.splice(bi, 1)[0]; picks.push(c);
+      const ck = c.v.channelId || c.v.channel;
+      chCount[ck] = (chCount[ck] || 0) + 1; catCount[c.v.category] = (catCount[c.v.category] || 0) + 1;
+    }
+
+    picks.forEach(c => {
+      let key = 'pick';
+      if (conf > .2 && c.catRel >= .6 && c.pref > .5) key = 'like';
+      else if (age != null && (prior[c.v.category] || 0) >= .8) key = 'age';
+      else if (c.fresh) key = 'fresh';
+      why.set(c.v.id, (WHY[key][ui] || WHY[key].ar).replace('{n}', age));
+    });
+    return picks.map(c => c.v);
+  };
+
+  const origCard = window.buildVideoCardHTML;
+  if (typeof origCard === 'function') {
+    window.buildVideoCardHTML = function (video, isRec) {
+      const html = origCard.apply(this, arguments);
+      return (isRec && why.has(video.id)) ? html.replace('✨ مقترح', why.get(video.id)) : html;
+    };
+  }
+
+  /* ---------- نموذج الحساب: سنوات الميلاد + معاينة ما سنقترحه ---------- */
+  function ageLabel(a) {
+    if (a === 0) return 'أقل من سنة'; if (a === 1) return 'سنة واحدة'; if (a === 2) return 'سنتان';
+    return a + (a <= 10 ? ' سنوات' : ' سنة');
+  }
+  const sel = document.getElementById('profile-birth-year');
+  const hint = document.getElementById('profile-age-hint');
+  if (sel) {
+    const Y = new Date().getFullYear();
+    let opts = '<option value="">اختر سنة الميلاد...</option>';
+    for (let a = 0; a <= 12; a++) opts += `<option value="${Y - a}">${Y - a} (${ageLabel(a)})</option>`;
+    sel.innerHTML = opts;
+    sel.addEventListener('change', () => {
+      if (!hint) return;
+      const age = ageOf({ birthYear: sel.value });
+      if (age == null) { hint.textContent = ''; return; }
+      const top = Object.entries(priorFor(age)).sort((a, b) => b[1] - a[1]).slice(0, 2).map(e => CAT_NAMES[e[0]]);
+      hint.textContent = `عمر الطفل: ${ageLabel(age)} • سنقترح له أولاً: ${top.join(' ثم ')}`;
+    });
+  }
+  window.GK_REC = { ageOf, priorFor };
+})();
+</script>
+
+<script type="module">
+/* ===================== نظام الحسابات الجديد (Firebase Authentication) =====================
+   1) Google (OAuth): بدون كلمة مرور، يرتبط بحساب Google الخاص بولي الأمر.
+   2) البريد + كلمة المرور: مع رابط تأكيد البريد واستعادة كلمة المرور.
+   بعد الدخول بأي طريقة يُطلب من ولي الأمر: اسم الطفل + سنة الميلاد (تُستخدم في الاقتراحات).
+   الإعداد: ألصق إعدادات مشروعك من Firebase Console ← Project settings ← Your apps (Web).
+============================================================================================ */
+const FIREBASE_CONFIG = {
+  apiKey: '',
+  authDomain: '',      // مثال: my-project.firebaseapp.com
+  projectId: '',
+  appId: ''
+};
+const FB = 'https://www.gstatic.com/firebasejs/10.12.2/';
+const $ = id => document.getElementById(id);
+const toast = m => { try { showToast(m); } catch (e) {} };
+const MIN_PW = 10;
+let mode = 'login', ready = false, auth = null, db = null, M = {};
+
+function status(msg, kind) {
+  const el = $('auth-status'); if (!el) return;
+  el.textContent = msg || '';
+  el.className = 'text-sm font-bold my-4 ' + (kind === 'error' ? 'text-red-600' : kind === 'ok' ? 'text-green-700' : 'text-slate-700');
+}
+function busy(b) {
+  ['google-auth', 'email-auth-submit'].forEach(id => { const e = $(id); if (e) { e.disabled = b || !ready; e.classList.toggle('opacity-60', b || !ready); } });
+}
+function errText(e) {
+  const c = (e && e.code) || '';
+  if (/invalid-credential|user-not-found|wrong-password|invalid-login/.test(c)) return 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+  if (c.includes('email-already-in-use')) return 'هذا البريد مسجّل مسبقاً. استخدم تسجيل الدخول أو جرّب Google';
+  if (c.includes('weak-password')) return `كلمة المرور ضعيفة. استخدم ${MIN_PW} أحرف على الأقل`;
+  if (c.includes('invalid-email')) return 'صيغة البريد الإلكتروني غير صحيحة';
+  if (c.includes('too-many-requests')) return 'محاولات كثيرة. انتظر قليلاً ثم حاول مجدداً';
+  if (c.includes('network-request-failed')) return 'تحقق من اتصالك بالإنترنت';
+  if (c.includes('popup-closed-by-user')) return 'تم إغلاق نافذة Google قبل إكمال الدخول';
+  if (c.includes('unauthorized-domain')) return 'هذا النطاق غير مضاف في Firebase ← Authentication ← Authorized domains';
+  if (c.includes('operation-not-allowed')) return 'هذه الطريقة غير مفعّلة في Firebase ← Authentication ← Sign-in method';
+  return 'حدث خطأ: ' + ((e && e.message) || c || 'غير معروف');
+}
+
+/* ---------- تبويبات: دخول / إنشاء حساب / نسيت كلمة المرور ---------- */
+const MODES = {
+  login:  { title: 'تسجيل الدخول بالبريد الإلكتروني', submit: 'تسجيل الدخول',      ac: 'current-password' },
+  signup: { title: 'إنشاء حساب بالبريد الإلكتروني',   submit: 'إنشاء الحساب',       ac: 'new-password' },
+  forgot: { title: 'استعادة كلمة المرور',             submit: 'إرسال رابط الاستعادة', ac: 'current-password' }
+};
+window.setAuthMode = function (m) {
+  mode = MODES[m] ? m : 'login';
+  const cfg = MODES[mode];
+  $('email-auth-title').textContent = cfg.title;
+  $('email-auth-submit').textContent = cfg.submit;
+  $('auth-password-field').classList.toggle('hidden', mode === 'forgot');
+  $('auth-password').required = mode !== 'forgot';
+  $('auth-password').autocomplete = cfg.ac;
+  $('auth-signup-help').classList.toggle('hidden', mode !== 'signup');
+  $('auth-forgot').classList.toggle('hidden', mode === 'forgot');
+  [['auth-login-tab', 'login'], ['auth-signup-tab', 'signup']].forEach(([id, k]) => {
+    const b = $(id); b.setAttribute('aria-pressed', String(mode === k)); b.classList.toggle('bg-sky-100', mode === k);
+  });
+  status('');
+};
+
+/* ---------- حفظ ملف الطفل (Firestore إن توفّر + نسخة محلية) ---------- */
+const lsKey = uid => 'goodykido_profile_' + uid;
+async function loadProfile(uid) {
+  try {
+    const s = await M.getDoc(M.doc(db, 'users', uid));
+    if (s.exists() && s.data().child_profile) { localStorage.setItem(lsKey(uid), JSON.stringify(s.data().child_profile)); return s.data().child_profile; }
+  } catch (e) { console.warn('Firestore read failed:', e.message); }
+  try { return JSON.parse(localStorage.getItem(lsKey(uid)) || 'null'); } catch (e) { return null; }
+}
+async function saveProfile(p) {
+  const u = auth && auth.currentUser; if (!u) throw new Error('not signed in');
+  localStorage.setItem(lsKey(u.uid), JSON.stringify(p));
+  try { await M.setDoc(M.doc(db, 'users', u.uid), { child_profile: p, email: u.email || '', updatedAt: Date.now() }, { merge: true }); }
+  catch (e) { console.warn('Firestore sync failed (saved on this device only):', e.message); }
+}
+window.accountAuth = { saveProfile, logout: async () => { if (auth) await M.signOut(auth); window.applyAccountSession(null); } };
+
+/* ---------- Google ---------- */
+window.startSocialOnboarding = async function () {
+  if (!ready) return;
+  busy(true); status('');
+  const p = new M.GoogleAuthProvider(); p.setCustomParameters({ prompt: 'select_account' });
+  try { await M.signInWithPopup(auth, p); }
+  catch (e) {
+    if (/popup-blocked|operation-not-supported/.test(e.code || '')) { try { await M.signInWithRedirect(auth, p); return; } catch (e2) { e = e2; } }
+    status(errText(e), 'error');
+  } finally { busy(false); }
+};
+
+/* ---------- بريد + كلمة مرور ---------- */
+async function onSubmit(ev) {
+  ev.preventDefault(); if (!ready) return;
+  const email = $('auth-email').value.trim(), pw = $('auth-password').value;
+  busy(true); status('');
+  try {
+    if (mode === 'forgot') {
+      await M.sendPasswordResetEmail(auth, email);
+      status('إذا كان البريد مسجّلاً، أرسلنا إليه رابط استعادة كلمة المرور.', 'ok');
+    } else if (mode === 'signup') {
+      if (pw.length < MIN_PW) { status(`كلمة المرور يجب أن تكون ${MIN_PW} أحرف على الأقل`, 'error'); return; }
+      const cred = await M.createUserWithEmailAndPassword(auth, email, pw);
+      await M.sendEmailVerification(cred.user);
+      await M.signOut(auth);
+      window.setAuthMode('login'); $('auth-password').value = '';
+      status('تم إنشاء الحساب ✓ أرسلنا رابط تأكيد إلى بريدك. افتحه ثم سجّل الدخول لإكمال بيانات طفلك.', 'ok');
+    } else {
+      const cred = await M.signInWithEmailAndPassword(auth, email, pw);
+      if (!cred.user.emailVerified) {
+        await M.sendEmailVerification(cred.user).catch(() => {});
+        await M.signOut(auth);
+        status('يجب تأكيد بريدك أولاً. أعدنا إرسال رابط التأكيد إلى بريدك.', 'error');
+      }
+    }
+  } catch (e) { status(errText(e), 'error'); }
+  finally { busy(false); }
+}
+
+/* ---------- تشغيل الخدمة ---------- */
+function showSetupNotice(text) {
+  const box = $('auth-step-login'); if (!box || $('auth-setup-notice')) return;
+  const d = document.createElement('div');
+  d.id = 'auth-setup-notice'; d.className = 'mb-4 rounded-2xl border-2 border-amber-400 bg-amber-50 p-3 text-xs font-bold text-start';
+  d.textContent = text; box.prepend(d);
+}
+async function init() {
+  window.setAuthMode('login');
+  $('email-auth-form').addEventListener('submit', onSubmit);
+  if (!FIREBASE_CONFIG.apiKey || !FIREBASE_CONFIG.projectId) {
+    showSetupNotice('لم يتم ربط خدمة الحسابات بعد. افتح index.html وألصق إعدادات Firebase داخل FIREBASE_CONFIG في أعلى سكربت الحسابات.');
+    busy(false); return;
+  }
+  try {
+    const [a, b, c] = await Promise.all([import(FB + 'firebase-app.js'), import(FB + 'firebase-auth.js'), import(FB + 'firebase-firestore.js')]);
+    Object.assign(M, b, { doc: c.doc, getDoc: c.getDoc, setDoc: c.setDoc });
+    const app = a.initializeApp(FIREBASE_CONFIG);
+    auth = b.getAuth(app); db = c.getFirestore(app);
+  } catch (e) {
+    showSetupNotice('تعذر تحميل خدمة الحسابات. تحقق من اتصالك بالإنترنت ثم أعد تحميل الصفحة.');
+    console.error(e); return;
+  }
+  ready = true; busy(false);
+  M.getRedirectResult(auth).catch(e => status(errText(e), 'error'));
+
+  M.onAuthStateChanged(auth, async user => {
+    const emailOnly = user && user.providerData.length && user.providerData.every(p => p.providerId === 'password');
+    if (!user || (emailOnly && !user.emailVerified)) { window.applyAccountSession(null); return; }
+    const profile = await loadProfile(user.uid);
+    window.applyAccountSession({
+      uid: user.uid, email: user.email, name: user.displayName || '',
+      provider: user.providerData.some(p => p.providerId === 'google.com') ? 'google' : 'email',
+      userMetadata: { child_profile: profile }
+    });
+    const modalOpen = !$('account-modal').classList.contains('hidden');
+    if (!profile) {                        // الخطوة الإلزامية: اسم الطفل + سنة الميلاد
+      status(''); openAccountModal(true);
+    } else if (modalOpen && !$('auth-step-login').classList.contains('hidden')) {
+      closeAccountModal(); toast(`أهلاً بعودتك! ملف ${profile.name} جاهز 🌟`);
+    }
+  });
+}
+init();
+</script>
+
+</body>
+</html>
