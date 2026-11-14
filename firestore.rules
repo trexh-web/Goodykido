@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // المدير = من لديه وثيقة في المجموعة admins باسم الـ UID الخاص به (تُنشأ يدوياً من Firebase Console فقط)
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // الكتالوج العام: القراءة للجميع، الكتابة للمدير فقط
+    match /public_channels/{channelId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /public_videos/{videoId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // المستخدم يقرأ وثيقته فقط للتحقق من كونه مديراً؛ لا أحد يكتبها من التطبيق
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // ملفات الأطفال: كل ولي أمر يصل إلى وثيقته فقط
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
